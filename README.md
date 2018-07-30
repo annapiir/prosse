@@ -1,5 +1,7 @@
 # Prosse - Työprosessien seurantasovellus
 
+Osoite: https://prosse.herokuapp.com/
+
 Sovelluksen avulla voidaan määritellä erilaisista tehtävistä koostuvia työprosesseja sekä seurata näiden etenemistä. 
 
 Organisaatiossa on työprosesseja, joita työntekijät toistavat tietyin väliajoin, esimerkiksi kuukausittain, vuosineljänneksittäin tai vuosittain. Sovelluksessa määritellään, millaisista tehtävistä työprosessit koostuvat sekä seurataan näiden etenemistä kierroskohtaisesti. 
