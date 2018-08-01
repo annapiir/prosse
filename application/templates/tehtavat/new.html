@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+  
+{% block body %}
+<form method="POST" action="{{ url_for('tehtavat_luo') }}">
+  <input type="text" name="nimi"/>
+  <input type="text" name="kuvaus"/>
+  <input type="submit" value="Lisää uusi tehtävä"/>
+</form>
+{% endblock %}

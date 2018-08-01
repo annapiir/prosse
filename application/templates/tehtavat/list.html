@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>Tehtävä</th>
+      <th>Kuvaus</th>
+      <th>Luontipäivä</th>
+      <th>Viimeksi muokattu</th>
+      <th></th>
+    </tr>
+    {% for tehtava in tehtavat %}
+    <tr>
+      <td>{{ tehtava.nimi }}</td>
+      <td>{{ tehtava.kuvaus }}</td>
+      <td>{{ tehtava.pvm_luonti }}</td>
+      <td>{{ tehtava.pvm_muokkaus}}</td>
+      <td>
+        <form method="GET" action="{{ url_for('tehtavat_muokkaa_lomake', tehtava_id=tehtava.id) }}">
+          <input type="submit" value="Muokkaa"/>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
