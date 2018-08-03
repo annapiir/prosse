@@ -24,11 +24,11 @@ Toimintoja:
 
 
 ## Kehitysdokumentaatio
-* [Tietokantakaavio](..documentation/prosse_db.png)
+* [Tietokantakaavio](documentation/prosse_db.png)
 * Käyttäjätarinat
-  * [Tehtävän lisääminen](..documentation/userstory/tehtava_lisays.md)
-  * [Tehtävien listaus](..documentation/userstory/tehtava_listaus.md)
-  * [Tehtävän muokkaus](..documentation/userstory/tehtava_muokkaus.md)
-  * [Käyttäjän lisääminen](..documentation/userstory/kayttaja_lisays.md)
-  * [Työprosessin lisääminen](..documentation/userstory/prosessi_lisays.md)
-  * [Työprosessin tehtävien päivittäminen](..documentation/userstory/pt_statuksen_paivittaminen.md)
+  * [Tehtävän lisääminen](documentation/userstory/tehtava_lisays.md)
+  * [Tehtävien listaus](documentation/userstory/tehtava_listaus.md)
+  * [Tehtävän muokkaus](documentation/userstory/tehtava_muokkaus.md)
+  * [Käyttäjän lisääminen](documentation/userstory/kayttaja_lisays.md)
+  * [Työprosessin lisääminen](documentation/userstory/prosessi_lisays.md)
+  * [Työprosessin tehtävien päivittäminen](documentation/userstory/pt_statuksen_paivittaminen.md)
