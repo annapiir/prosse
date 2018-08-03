@@ -2,6 +2,8 @@
 
 Osoite: https://prosse.herokuapp.com/
 
+##Kuvaus
+
 Sovelluksen avulla voidaan määritellä erilaisista tehtävistä koostuvia työprosesseja sekä seurata näiden etenemistä. 
 
 Organisaatiossa on työprosesseja, jotka koostuvat tehtävistä. Sovelluksessa määritellään tehtäviä, muodostetaan tehtävistä työprosesseja ja seurataan prosessien etenemistä tehtäväkohtaisesti.  
@@ -19,3 +21,14 @@ Toimintoja:
 * Prosessiin kuuluvien tehtävien aloittaminen/lopettaminen
 * Prosessivastaavan raportit
 * Työntekijän raportit
+
+
+##Kehitysdokumentaatio
+* [Tietokantakaavio] (../documentation/prosse_db.png)
+* Käyttäjätarinat
+** [Tehtävän lisääminen] (../documentation/userstory/tehtava_lisays.md)
+** [Tehtävien listaus] (../documentation/userstory/tehtava_listaus.md)
+** [Tehtävän muokkaus] (../documentation/userstory/tehtava_muokkaus.md)
+** [Käyttäjän lisääminen] (../documentation/userstory/kayttaja_lisays.md)
+** [Työprosessin lisääminen] (../documentation/userstory/prosessi_lisays.md)
+** [Työprosessin tehtävien päivittäminen] (../documentation/userstory/pt_statuksen_paivittaminen.md)
