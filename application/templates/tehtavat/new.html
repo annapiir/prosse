@@ -6,14 +6,12 @@
   <legend>Uusi tehtävä</legend>
   <form method="POST" action="{{ url_for('tehtavat_luo') }}">
       <p>
-        <label>Nimi: </label>
-        <input type="text" name="nimi"/>
+        <label>{{ form.nimi.label }} </label>
+        {{ form.nimi }}
       </p>
       <p>
-          <label>Kuvaus</label>
-          <textarea name = "kuvaus"
-                  rows = "3"
-                  cols = "80"></textarea>
+          <label>{{ form.kuvaus.label }}</label>
+          {{ form.kuvaus(rows=3, cols=80) }}
       </p>
           <input type="submit" value="Lisää uusi tehtävä"/>
   </form>

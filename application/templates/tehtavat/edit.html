@@ -7,10 +7,8 @@
     <p>Nimi: {{ tehtava.nimi }}</p>
     <form method="POST" action="{{ url_for('tehtavat_muokkaa', tehtava_id=tehtava.id) }}">
         <p>
-            <label>Kuvaus</label>
-            <textarea name = "kuvaus"
-                    rows = "3"
-                    cols = "80">{{ tehtava.kuvaus }}</textarea>
+            <label>{{ form.kuvaus.label }}</label>
+            {{ form.kuvaus(rows=3, cols=80) }}
         </p>
             <input type="submit" value="Tallenna"/>
     </form>
