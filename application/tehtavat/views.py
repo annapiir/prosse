@@ -22,7 +22,7 @@ def tehtavat_muokkaa_lomake(tehtava_id):
     tehtava = Tehtava.query.get(tehtava_id)
     #Annetaan lomakeolion kuvaukselle tehtävän kuvaus lähtöarvoksi
     form.kuvaus.data = tehtava.kuvaus
-    
+
     return render_template("tehtavat/edit.html", form=form, tehtava=tehtava)
 
 #Lähettää muokatun tehtävän tiedot tietokantaan  
@@ -39,6 +39,12 @@ def tehtavat_muokkaa(tehtava_id):
 @app.route("/tehtavat/", methods=["POST"])
 def tehtavat_luo():
     form = TehtavaLisaysLomake(request.form)
+
+    #Lomakkeen validointi
+    if not form.validate():
+        return render_template("tehtavat/new.html", form = form)
+
+    #Jos lomake oli ok, muodostetaan uusi tehtäväolio ja viedään kantaan
     t = Tehtava(form.nimi.data, form.kuvaus.data)
 
     db.session().add(t)

@@ -8,12 +8,19 @@
       <p>
         <label>{{ form.nimi.label }} </label>
         {{ form.nimi }}
+        <td>
+            <ul>
+              {% for error in form.nimi.errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          </td>
       </p>
       <p>
           <label>{{ form.kuvaus.label }}</label>
           {{ form.kuvaus(rows=3, cols=80) }}
       </p>
-          <input type="submit" value="Lisää uusi tehtävä"/>
+          {{ form.lisaa }}
   </form>
 </fieldset>
 {% endblock %}

@@ -4,17 +4,25 @@
       <meta charset="utf-8">
       <title>TodoApplication</title>
     </head>
-    
+
     <body>
+      {% if current_user.is_authenticated %}
+        <p>
+          Kirjautunut nimellä {{ current_user.kayttajan_nimi }}. <a href="{{ url_for('auth_logout') }}">Kirjaudu ulos</a>
+        </p>
+      {% else %}
+        <a href="{{ url_for('auth_login') }}">Kirjaudu</a>
+      {% endif %}
+
       <ul>
-	<li><a href="{{ url_for('tehtavat_lista') }}">Listaa tehtävät</a></li>
-	<li><a href="{{ url_for('tehtavat_lomake') }}">Lisää tehtävä</a></li>
+	     <li><a href="{{ url_for('tehtavat_lista') }}">Listaa tehtävät</a></li>
+	     <li><a href="{{ url_for('tehtavat_lomake') }}">Lisää tehtävä</a></li>
       </ul>
       
       {% block body %}
-      <p>
-	Content.
-      </p>
+        <p>
+	        Content.
+        </p>
       {% endblock %}
     </body>
   </html>
