@@ -16,6 +16,7 @@ class TehtavaMuokkausLomake(FlaskForm):
     kuvaus = TextAreaField("Tehtävän kuvaus",
         [validators.Length(max=300, message="Kuvaus saa olla korkeintaan 300 merkkiä")])
     tallenna = SubmitField("Tallenna")
+    poista = SubmitField("Poista")
 
     class Meta:
         csrf = False

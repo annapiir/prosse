@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<fieldset>
+    <legend>Käyttäjä-id {{ kayttaja.id }}</legend>
+    <form method="POST" action="{{ url_for('kayttaja_muokkaa', kayttaja_id=kayttaja.id) }}">
+        <p>
+            <label>{{ form.tunnus.label }}</label>
+            {{ form.tunnus }}
+        </p>
+        <p>
+            <label>{{ form.kayttajan_nimi.label }}</label>
+            {{ form.kayttajan_nimi }}
+        </p>
+        <p>
+            <label>{{ form.salasana.label }}</label>
+            {{ form.salasana }}
+        </p>
+            {{ form.tallenna }}
+    </form>
+</fieldset>
+
+{% endblock %}

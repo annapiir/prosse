@@ -30,9 +30,17 @@ def tehtavat_muokkaa_lomake(tehtava_id):
 def tehtavat_muokkaa(tehtava_id):
     form = TehtavaMuokkausLomake(request.form)
     t = Tehtava.query.get(tehtava_id)
-    t.kuvaus = form.kuvaus.data
-    db.session().commit()
-  
+
+    #Tutkitaan, tallennettiinko vai poistettiinko kuvaus
+    #Tämä ei ole nätti tapa, pitää parantaa
+    if form.validate_on_submit():
+        if form.tallenna.data:
+            t.kuvaus = form.kuvaus.data
+            db.session().commit()
+        elif form.poista.data:
+            db.session().delete(t)
+            db.session().commit()
+
     return redirect(url_for("tehtavat_lista"))
 
 #Lähettää lisätyn tehtävän tiedot tietokantaan
@@ -48,6 +56,16 @@ def tehtavat_luo():
     t = Tehtava(form.nimi.data, form.kuvaus.data)
 
     db.session().add(t)
+    db.session().commit()
+  
+    return redirect(url_for("tehtavat_lista"))
+
+#Poistaa tehtävän  
+@app.route("/tehtavat/<tehtava_id>/", methods=["POST"])
+def tehtavat_poista(tehtava_id):
+    t = Tehtava.query.get(tehtava_id)
+
+    db.session().delete(t)
     db.session().commit()
   
     return redirect(url_for("tehtavat_lista"))

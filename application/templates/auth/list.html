@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>Käyttäjä</th>
+      <th>Nimi</th>
+      <th>Luontipäivä</th>
+      <th>Viimeksi muokattu</th>
+      <th></th>
+    </tr>
+    {% for kayttaja in kayttajat %}
+    <tr>
+      <td>{{ kayttaja.tunnus }}</td>
+      <td>{{ kayttaja.kayttajan_nimi }}</td>
+      <td>{{ kayttaja.pvm_luonti }}</td>
+      <td>{{ kayttaja.pvm_muokkaus}}</td>
+      <td>
+        <form method="GET" action="{{ url_for('kayttaja_muokkaa_lomake', kayttaja_id=kayttaja.id) }}">
+          <input type="submit" value="Muokkaa"/>
+      </td>
+    </tr>
+        
+    {% endfor %}
+  </table>
+        <p>
+            <input type="submit" formaction="{{ url_for('kayttaja_lisays_lomake') }}" value="Lisää uusi käyttäjä"/>
+        </p>
+        </form>
+{% endblock %}
