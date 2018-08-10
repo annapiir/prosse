@@ -35,6 +35,9 @@ def tehtavat_muokkaa(tehtava_id):
     form = TehtavaMuokkausLomake(request.form)
     t = Tehtava.query.get(tehtava_id)
 
+    if not form.validate():
+        return render_template("tehtavat/edit.html", form = form)
+
     #Tutkitaan, tallennettiinko vai poistettiinko kuvaus
     #Tämä ei ole nätti tapa, pitää parantaa
     if form.validate_on_submit():

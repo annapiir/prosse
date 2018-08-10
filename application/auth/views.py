@@ -45,6 +45,7 @@ def kayttaja_muokkaa_lomake(kayttaja_id):
     #Annetaan lomakeoliolle käyttäjän tiedot lähtöarvoiksi
     form.tunnus.data = kayttaja.tunnus
     form.kayttajan_nimi.data = kayttaja.kayttajan_nimi
+    form.salasana.data = kayttaja.salasana
 
     return render_template("auth/edit.html", form=form, kayttaja=kayttaja)
 

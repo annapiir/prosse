@@ -9,6 +9,9 @@ from application.auth.models import Kayttaja
 #Palauttaa prosessien listauksen
 @app.route("/prosessi/")
 def prosessi_lista():
+
+    #To do: Yhdistä prosessit käyttäjiin, jotta saat omistajan nimen id:n sijasta
+    
     return render_template("prosessi/list.html", prosessit = Prosessi.query.all()) 
 
 #Palauttaa prosessinmuokkauslomakkeen

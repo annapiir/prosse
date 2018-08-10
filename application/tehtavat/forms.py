@@ -4,7 +4,8 @@ from wtforms import StringField, TextAreaField, SubmitField, validators
 class TehtavaLisaysLomake(FlaskForm):
     nimi = StringField("Tehtävän nimi" 
         ,[validators.Length(min=2, message="Nimen pitää olla vähintään kaksi merkkiä pitkä"), 
-        validators.Length(max=144, message="Nimi saa olla korkeintaan 144 merkkiä")])
+        validators.Length(max=144, message="Nimi saa olla korkeintaan 144 merkkiä"),
+        validators.InputRequired(message="Tehtävälle pitää antaa nimi")])
     kuvaus = TextAreaField("Tehtävän kuvaus"
         ,[validators.Length(max=300, message="Kuvaus saa olla korkeintaan 300 merkkiä")])
     lisaa = SubmitField("Lisää uusi tehtävä")

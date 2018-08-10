@@ -8,14 +8,35 @@
         <p>
             <label>{{ form.tunnus.label }}</label>
             {{ form.tunnus }}
+            <td>
+                <ul>
+                    {% for error in form.tunnus.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
         </p>
         <p>
             <label>{{ form.kayttajan_nimi.label }}</label>
             {{ form.kayttajan_nimi }}
+            <td>
+                <ul>
+                    {% for error in form.kayttajan_nimi.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
         </p>
         <p>
             <label>{{ form.salasana.label }}</label>
             {{ form.salasana }}
+            <td>
+                <ul>
+                    {% for error in form.salasana.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
         </p>
             {{ form.tallenna }}
     </form>
