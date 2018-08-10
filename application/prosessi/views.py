@@ -65,4 +65,4 @@ def prosessi_lisays():
     db.session().add(p)
     db.session().commit()
   
-    return redirect(url_for("kayttaja_lista"))
+    return redirect(url_for("prosessi_lista"))
