@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<fieldset>
+    <legend>Prosessi {{ prosessi.id }}</legend>
+    <p>Omistaja: {{ prosessi.omistaja }}</p>
+    <form method="POST" action="{{ url_for('prosessi_muokkaa', prosessi_id=prosessi.id) }}">
+        <p>
+            <label>{{ form.prosessin_nimi.label }}</label>
+            {{ form.prosessin_nimi }}
+            <label>{{ form.pvm_alku.label }}</label>
+            {{ form.pvm_alku }}
+            <label>{{ form.pvm_loppu.label }}</label>
+            {{ form.pvm_loppu }}
+        </p>
+            {{ form.tallenna }}
+    </form>
+</fieldset>
+
+{% endblock %}

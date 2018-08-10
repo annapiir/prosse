@@ -23,6 +23,10 @@ from application.tehtavat import views
 from application.auth import models
 from application.auth import views
 
+from application.prosessi import models
+from application.prosessi import views
+
+
 # kirjautuminen
 from application.auth.models import Kayttaja
 from os import urandom

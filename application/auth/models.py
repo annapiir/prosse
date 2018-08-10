@@ -13,6 +13,8 @@ class Kayttaja(db.Model):
     tunnus = db.Column(db.String(144), nullable=False)
     salasana = db.Column(db.String(144), nullable=False)
 
+    prosessit = db.relationship("Prosessi", backref='kayttaja', lazy=True)
+
     def __init__(self, kayttajan_nimi, tunnus, salasana):
         self.kayttajan_nimi = kayttajan_nimi
         self.tunnus = tunnus

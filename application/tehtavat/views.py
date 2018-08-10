@@ -1,5 +1,6 @@
 from application import app, db
 from flask import redirect, render_template, request, url_for
+from flask_login import login_required
 from application.tehtavat.models import Tehtava
 from application.tehtavat.forms import TehtavaLisaysLomake, TehtavaMuokkausLomake
 
@@ -9,12 +10,14 @@ def tehtavat_lista():
     return render_template("tehtavat/list.html", tehtavat = Tehtava.query.all())
 
 #Palauttaa tehtävänlisäyslomakkeen
-@app.route("/tehtavat/uusi/")
+@app.route("/tehtavat/uusi/", methods=["GET"])
+@login_required
 def tehtavat_lomake():
     return render_template("tehtavat/new.html", form = TehtavaLisaysLomake())
 
 #Palattaa muokattavaksi valitun tehtävän tiedot lomakkeella 
 @app.route("/tehtavat/<tehtava_id>/", methods=["GET"])
+@login_required
 def tehtavat_muokkaa_lomake(tehtava_id):
 
     #Muodostetaan tehtävä- ja lomakeoliot
@@ -27,6 +30,7 @@ def tehtavat_muokkaa_lomake(tehtava_id):
 
 #Lähettää muokatun tehtävän tiedot tietokantaan  
 @app.route("/tehtavat/<tehtava_id>/", methods=["POST"])
+@login_required
 def tehtavat_muokkaa(tehtava_id):
     form = TehtavaMuokkausLomake(request.form)
     t = Tehtava.query.get(tehtava_id)
@@ -45,6 +49,7 @@ def tehtavat_muokkaa(tehtava_id):
 
 #Lähettää lisätyn tehtävän tiedot tietokantaan
 @app.route("/tehtavat/", methods=["POST"])
+@login_required
 def tehtavat_luo():
     form = TehtavaLisaysLomake(request.form)
 
@@ -62,6 +67,7 @@ def tehtavat_luo():
 
 #Poistaa tehtävän  
 @app.route("/tehtavat/<tehtava_id>/", methods=["POST"])
+@login_required
 def tehtavat_poista(tehtava_id):
     t = Tehtava.query.get(tehtava_id)
 

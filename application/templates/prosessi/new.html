@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+  
+{% block body %}
+
+<fieldset>
+  <legend>Uusi prosessi</legend>
+  <form method="POST" action="{{ url_for('prosessi_lisays') }}">
+      <p>
+        <label>{{ form.prosessin_nimi.label }} </label>
+        {{ form.prosessin_nimi }}
+        <td>
+      </p>
+      <p>
+          <label>{{ form.pvm_alku.label }}</label>
+          {{ form.pvm_alku }}
+          <label>{{ form.pvm_loppu.label }}</label>
+          {{ form.pvm_loppu }}
+      </p>
+          {{ form.lisaa }}
+  </form>
+</fieldset>
+{% endblock %}

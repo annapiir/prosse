@@ -1,10 +1,11 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required
 
 from application import app, db
 from application.auth.models import Kayttaja
 from application.auth.forms import KirjautuminenLomake, KayttajaMuokkausLomake, KayttajaLisaysLomake
 
+#Kirjautuminen
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
     if request.method == "GET":
@@ -22,16 +23,20 @@ def auth_login():
     login_user(kayttaja)
     return redirect(url_for("index")) 
 
+#Uloskirjautuminen
 @app.route("/auth/logout")
 def auth_logout():
     logout_user()
     return redirect(url_for("index"))   
 
+#Käyttäjien listaus
 @app.route("/auth/users")
 def kayttaja_lista():
     return render_template("auth/list.html", kayttajat = Kayttaja.query.all()) 
 
+#Käyttäjän tietojen muokkauslomake
 @app.route("/auth/<kayttaja_id>/", methods=["GET"])
+@login_required
 def kayttaja_muokkaa_lomake(kayttaja_id):
 
     #Muodostetaan tehtävä- ja lomakeoliot
@@ -45,6 +50,7 @@ def kayttaja_muokkaa_lomake(kayttaja_id):
 
 #Lähettää muokatun käyttäjän tiedot tietokantaan  
 @app.route("/auth/<kayttaja_id>/", methods=["POST"])
+@login_required
 def kayttaja_muokkaa(kayttaja_id):
     form = KayttajaMuokkausLomake(request.form)
     k = Kayttaja.query.get(kayttaja_id)
@@ -58,12 +64,12 @@ def kayttaja_muokkaa(kayttaja_id):
   
     return redirect(url_for("kayttaja_lista"))
 
-#Palauttaa tehtävänlisäyslomakkeen
+#Palauttaa käyttäjänlisäyslomakkeen
 @app.route("/auth/uusi/")
 def kayttaja_lisays_lomake():
     return render_template("auth/new.html", form = KayttajaLisaysLomake())
 
-#Lähettää lisätyn tehtävän tiedot tietokantaan
+#Lähettää lisätyn käyttäjän tiedot tietokantaan
 @app.route("/auth/", methods=["POST"])
 def kayttaja_lisays():
     form = KayttajaLisaysLomake(request.form)
@@ -73,9 +79,9 @@ def kayttaja_lisays():
         #return render_template("tehtavat/new.html", form = form)
 
     #Jos lomake oli ok, muodostetaan uusi tehtäväolio ja viedään kantaan
-    t = Kayttaja(form.kayttajan_nimi.data, form.tunnus.data, form.salasana.data)
+    k = Kayttaja(form.kayttajan_nimi.data, form.tunnus.data, form.salasana.data)
 
-    db.session().add(t)
+    db.session().add(k)
     db.session().commit()
   
     return redirect(url_for("kayttaja_lista"))
