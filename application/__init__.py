@@ -4,12 +4,14 @@ app = Flask(__name__)
 
 # Tuodaan SQLAlchemy käyttöön
 from flask_sqlalchemy import SQLAlchemy
-# Käytetään tasks.db-nimistä SQLite-tietokantaa. Kolme vinoviivaa
-# kertoo, tiedosto sijaitsee tämän sovelluksen tiedostojen kanssa
-# samassa paikassa
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///prosse.db"
-# Pyydetään SQLAlchemyä tulostamaan kaikki SQL-kyselyt
-app.config["SQLALCHEMY_ECHO"] = True
+import os
+#Jos ympäristö on Heroku
+if os.environ.get("HEROKU"):
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+else:
+#Jos ympäristö on paikallinen
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///prosse.db"    
+    app.config["SQLALCHEMY_ECHO"] = True
 
 # Luodaan db-olio, jota käytetään tietokannan käsittelyyn
 db = SQLAlchemy(app)
@@ -43,5 +45,8 @@ login_manager.login_message = "Kirjaudu sisään päästäksesi tähän toiminna
 def lataa_kayttaja(user_id):
     return Kayttaja.query.get(user_id)
 
-# Luodaan lopulta tarvittavat tietokantataulut
-db.create_all()
+# Luodaan lopulta tarvittavat tietokantataulut, mutta vain jos niitä ei ole ennestään
+try: 
+    db.create_all()
+except:
+    pass
