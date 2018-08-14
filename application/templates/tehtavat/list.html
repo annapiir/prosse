@@ -16,8 +16,8 @@
       <td>{{ tehtava.pvm_luonti }}</td>
       <td>{{ tehtava.pvm_muokkaus}}</td>
       <td>
-        <form method="GET" action="{{ url_for('tehtavat_muokkaa_lomake', tehtava_id=tehtava.id) }}">
-          <input type="submit" value="Muokkaa tai poista"/>
+        <form method="GET" action="{{ url_for('tehtavat_nayta', tehtava_id=tehtava.id) }}">
+          <input type="submit" value="Näytä"/>
         </form>
       </td>
     </tr>

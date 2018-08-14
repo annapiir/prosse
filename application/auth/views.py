@@ -56,6 +56,10 @@ def kayttaja_muokkaa(kayttaja_id):
     form = KayttajaMuokkausLomake(request.form)
     k = Kayttaja.query.get(kayttaja_id)
 
+    #Lomakkeen validointi
+    if not form.validate():
+        return render_template("auth/edit.html", form = form)
+
     #Haetaan lomakkeelta tiedot
     k.kayttajan_nimi = form.kayttajan_nimi.data
     k.tunnus = form.tunnus.data
@@ -76,8 +80,8 @@ def kayttaja_lisays():
     form = KayttajaLisaysLomake(request.form)
 
     #Lomakkeen validointi
-    #if not form.validate():
-        #return render_template("tehtavat/new.html", form = form)
+    if not form.validate():
+        return render_template("auth/new.html", form = form)
 
     #Jos lomake oli ok, muodostetaan uusi tehtäväolio ja viedään kantaan
     k = Kayttaja(form.kayttajan_nimi.data, form.tunnus.data, form.salasana.data)

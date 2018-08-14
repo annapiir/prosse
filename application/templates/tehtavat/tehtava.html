@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<fieldset>
+    <legend>Tehtävä {{ tehtava.id }}</legend>
+    <p>
+        <b>Nimi:</b> {{ tehtava.nimi }}
+    </p>
+    <p>
+        <b>Tehtävän kuvaus:</b> {{ tehtava.kuvaus }}
+    </p>
+    <p>
+        <b>Luotu:</b> {{ tehtava.pvm_luonti }}
+    </p>
+    <p>
+        <b>Muokattu:</b> {{tehtava.pvm_muokkaus}}
+    </p>
+    <form method="GET" action="{{ url_for('tehtavat_muokkaa_lomake', tehtava_id=tehtava.id) }}">
+        <input type="submit" value="Muokkaa"></input>
+        <input type="submit" formmethod="POST" formaction="{{ url_for('tehtavat_poista', tehtava_id=tehtava.id) }}"value="Poista"></input>
+    </form>
+</fieldset>
+
+{% endblock %}

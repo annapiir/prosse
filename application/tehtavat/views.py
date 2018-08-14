@@ -15,8 +15,13 @@ def tehtavat_lista():
 def tehtavat_lomake():
     return render_template("tehtavat/new.html", form = TehtavaLisaysLomake())
 
-#Palattaa muokattavaksi valitun tehtävän tiedot lomakkeella 
+#Palauttaa valitun tehtävän tiedot lomakkeella
 @app.route("/tehtavat/<tehtava_id>/", methods=["GET"])
+def tehtavat_nayta(tehtava_id):
+    return render_template("tehtavat/tehtava.html", tehtava=Tehtava.query.get(tehtava_id))
+
+#Palattaa muokattavaksi valitun tehtävän tiedot lomakkeella 
+@app.route("/tehtavat/muokkaa/<tehtava_id>/", methods=["GET"])
 @login_required
 def tehtavat_muokkaa_lomake(tehtava_id):
 
@@ -29,12 +34,13 @@ def tehtavat_muokkaa_lomake(tehtava_id):
     return render_template("tehtavat/edit.html", form=form, tehtava=tehtava)
 
 #Lähettää muokatun tehtävän tiedot tietokantaan  
-@app.route("/tehtavat/<tehtava_id>/", methods=["POST"])
+@app.route("/tehtavat/muokkaa/<tehtava_id>/", methods=["POST"])
 @login_required
 def tehtavat_muokkaa(tehtava_id):
     form = TehtavaMuokkausLomake(request.form)
     t = Tehtava.query.get(tehtava_id)
 
+    #Lomakkeen validointi
     if not form.validate():
         return render_template("tehtavat/edit.html", form = form)
 

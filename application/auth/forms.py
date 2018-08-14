@@ -35,3 +35,6 @@ class KayttajaLisaysLomake(FlaskForm):
         [validators.Length(min=5, message="Salasanan pitää olla vähintään 5 merkkiä"),
         validators.Length(max=144, message="Salasana voi olla korkeintaan 144 merkkiä")])
     lisaa = SubmitField("Lisää uusi käyttäjä")
+
+    class Meta:
+            csrf = False

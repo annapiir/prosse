@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<fieldset>
+    <legend>Prosessi {{ prosessi.id }}</legend>
+    <p>
+        <b>Nimi:</b> {{ prosessi.prosessin_nimi }}
+    </p>
+    <p>
+        <b>Prosessin omistaja:</b> {{ prosessi.owner_id }}
+    </p>
+    <p>
+        <b>Alkupäivä:</b> {{ prosessi.pvm_alku }}
+    </p>
+    <p>
+        <b>Loppupäivä:</b> {{prosessi.pvm_loppu}}
+    </p>
+    <form method="GET" action="{{ url_for('prosessi_muokkaa_lomake', prosessi_id=prosessi.id) }}">
+        <input type="submit" value="Muokkaa"></input>
+        <input type="submit" formmethod="POST" formaction="{{ url_for('prosessi_poista', prosessi_id=prosessi.id) }}"value="Poista"></input>
+    </form>
+</fieldset>
+
+{% endblock %}

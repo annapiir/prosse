@@ -6,7 +6,8 @@
       <th>Prosessi</th>
       <th>Omistaja</th>
       <th>Luontipäivä</th>
-      <th>Viimeksi muokattu</th>
+      <th>Alkupäivä</th>
+      <th>Loppupäivä</th>
       <th></th>
     </tr>
     {% for prosessi in prosessit %}
@@ -17,8 +18,8 @@
       <td>{{ prosessi.pvm_alku }}</td>
       <td>{{ prosessi.pvm_loppu}}</td>
       <td>
-        <form method="GET" action="{{ url_for('prosessi_muokkaa_lomake', prosessi_id=prosessi.id) }}">
-          <input type="submit" value="Muokkaa"/>
+        <form method="GET" action="{{ url_for('prosessi_nayta', prosessi_id=prosessi.id) }}">
+          <input type="submit" value="Näytä"/>
         </form>
       </td>
     </tr>
