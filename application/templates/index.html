@@ -4,4 +4,15 @@
   <p>
       Tervetuloa työprosessien seurantasovellus Prosseen!
   </p>
+
+  {% if prosessit_lkm != "Ei käyttäjää" %}
+  
+    {% for prosessi in prosessit_lkm %}
+    <p>
+      Käyttäjä {{ prosessi.id }} ({{ prosessi.nimi }}) omistaa {{ prosessi.lkm }} prosessia
+    </p>
+    {% endfor %}
+  
+  {% endif %}
+
 {% endblock %}

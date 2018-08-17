@@ -1,10 +1,7 @@
 from application import db
+from application.models import Base
 
-class Prosessi(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    pvm_luonti = db.Column(db.DateTime, default=db.func.current_timestamp())
-    pvm_muokkaus = db.Column(db.DateTime, default=db.func.current_timestamp(),
-    onupdate=db.func.current_timestamp())
+class Prosessi(Base):
 
     prosessin_nimi = db.Column(db.String(144), nullable=False)
     pvm_alku = db.Column(db.DateTime)

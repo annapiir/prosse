@@ -1,13 +1,12 @@
 from application import db
+from application.models import Base
+from flask_login import current_user
 
-class Kayttaja(db.Model):
+from sqlalchemy.sql import text
+
+class Kayttaja(Base):
 
     __tablename__ = "kayttaja"
-  
-    id = db.Column(db.Integer, primary_key=True)
-    pvm_luonti = db.Column(db.DateTime, default=db.func.current_timestamp())
-    pvm_muokkaus = db.Column(db.DateTime, default=db.func.current_timestamp(),
-                              onupdate=db.func.current_timestamp())
 
     kayttajan_nimi = db.Column(db.String(144), nullable=False)
     tunnus = db.Column(db.String(144), nullable=False)
@@ -31,3 +30,18 @@ class Kayttaja(db.Model):
 
     def is_authenticated(self):
         return True
+
+    @staticmethod
+    def montako_prosessia_kayttajalla():
+
+            if current_user.get_id() is None:
+                return "Ei käyttäjää"
+            else:
+                kayttaja_id = current_user.get_id()
+                stmt = text("SELECT Kayttaja.id as id, Kayttaja.kayttajan_nimi as nimi, COUNT(Prosessi.id) as lkm FROM Kayttaja"
+                            " LEFT JOIN Prosessi ON Prosessi.owner_id = Kayttaja.id"
+                            " WHERE Kayttaja.id = :kayttaja_id").params(kayttaja_id=kayttaja_id)
+
+                res = db.engine.execute(stmt)
+
+                return res
