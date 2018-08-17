@@ -40,7 +40,8 @@ class Kayttaja(Base):
                 kayttaja_id = current_user.get_id()
                 stmt = text("SELECT Kayttaja.id as id, Kayttaja.kayttajan_nimi as nimi, COUNT(Prosessi.id) as lkm FROM Kayttaja"
                             " LEFT JOIN Prosessi ON Prosessi.owner_id = Kayttaja.id"
-                            " WHERE Kayttaja.id = :kayttaja_id").params(kayttaja_id=kayttaja_id)
+                            " WHERE Kayttaja.id = :kayttaja_id"
+                            " GROUP BY Kayttaja.id").params(kayttaja_id=kayttaja_id)
 
                 res = db.engine.execute(stmt)
 
