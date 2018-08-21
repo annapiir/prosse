@@ -1,0 +1,32 @@
+{% block body %}
+
+<fieldset>
+    <legend>Prosessi {{ prosessi.id }}</legend>
+    <p>
+        <b>Nimi:</b> {{ prosessi.prosessin_nimi }}
+    </p>
+    <p>
+        <b>Prosessin omistaja:</b> {{ prosessi.owner_id }}
+    </p>
+    <p>
+        <b>Alkupäivä:</b> {{ prosessi.pvm_alku }}
+    </p>
+    <p>
+        <b>Loppupäivä:</b> {{prosessi.pvm_loppu}}
+    </p>
+</fieldset>
+<fieldset>
+    <legend>Prosessin tehtävät</legend>
+        <table>
+                <tr>
+                      <th>Prosessitehtävän ID</th>
+                    </tr>
+                    {% for tehtava in tehtavat %}
+                    <tr>
+                      <td>{{ tehtava.tehtava_id }}</td>
+                    </tr>
+                    {% endfor %}
+            </table>
+</fieldset>
+
+{% endblock %}

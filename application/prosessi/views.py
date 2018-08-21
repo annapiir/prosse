@@ -5,6 +5,8 @@ from application import app, db
 from application.prosessi.models import Prosessi
 from application.prosessi.forms import ProsessiMuokkausLomake, ProsessiLisaysLomake
 from application.auth.models import Kayttaja
+from application.prosessitehtava.models import Prosessitehtava
+from application.tehtavat.models import Tehtava
 
 #Palauttaa prosessien listauksen
 @app.route("/prosessi/")
@@ -17,6 +19,7 @@ def prosessi_lista():
 #Palauttaa prosessin tiedot
 @app.route("/prosessi/<prosessi_id>/", methods=["GET"])
 def prosessi_nayta(prosessi_id):
+
     return render_template("prosessi/prosessi.html", prosessi=Prosessi.query.get(prosessi_id))
 
 #Palauttaa prosessinmuokkauslomakkeen
@@ -32,7 +35,10 @@ def prosessi_muokkaa_lomake(prosessi_id):
     form.pvm_alku.data = p.pvm_alku
     form.pvm_loppu.data = p.pvm_loppu
 
-    return render_template("prosessi/edit.html", form=form, prosessi=p)
+    lisatyt = Prosessi.listaa_prosessin_tehtavat(prosessi_id)
+
+    return render_template("prosessi/edit.html", form=form, prosessi=p, 
+        tehtavat=Tehtava.query.all(), lisatyt=lisatyt)
 
 #Lähettää muokatun prosessin tiedot tietokantaan  
 @app.route("/prosessi/muokkaa/<prosessi_id>/", methods=["POST"])

@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+
+<form method="POST" action="{{ url_for('prosessitehtava_lomake') }}">
+    <select name="prosessit">
+        {% for prosessi in prosessit %}
+            <option value="{{ prosessi.id }}">{{ prosessi.prosessin_nimi }}</option>
+        {% endfor %}
+    </select>
+    <p>
+        <input type="submit" value="Valitse"></input>
+    </p>
+</form>
+
+
+{% endblock %}

@@ -1,6 +1,7 @@
 from application import db
 from application.models import Base
 from flask_login import current_user
+from application.prosessitehtava.models import Prosessitehtava
 
 from sqlalchemy.sql import text
 
@@ -13,6 +14,9 @@ class Kayttaja(Base):
     salasana = db.Column(db.String(144), nullable=False)
 
     prosessit = db.relationship("Prosessi", backref='kayttaja', lazy=True)
+    pt_kommentoija = db.relationship("Prosessitehtava", backref='kommentoija', foreign_keys=[Prosessitehtava.kommentoija_id], lazy=True)
+    pt_kuittaaja_alku = db.relationship("Prosessitehtava", backref='kuittaaja_alku', foreign_keys=[Prosessitehtava.kuittaaja_alku_id], lazy=True)
+    pt_kuittaaja_loppu = db.relationship("Prosessitehtava", backref='kuittaaja_loppu', foreign_keys=[Prosessitehtava.kuittaaja_loppu_id], lazy=True)
 
     def __init__(self, kayttajan_nimi, tunnus, salasana):
         self.kayttajan_nimi = kayttajan_nimi

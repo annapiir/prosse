@@ -16,6 +16,32 @@
         </p>
             {{ form.tallenna }}
     </form>
+    <table>
+        <tr>
+              <th>Tehtävän ID</th>
+              <th>Nimi</th>
+              <th>Kuvaus</th>
+              <th></th>
+            </tr>
+            {% for tehtava in lisatyt %}
+            <tr>
+              <td>{{ tehtava.id }}</td>
+              <td>{{ tehtava.nimi }}</td>
+              <td>{{ tehtava.kuvaus }}</td>
+              <td>
+                <form method="POST" action="{{ url_for('prosessitehtava_poista', tehtava_id=tehtava.id, prosessi_id=prosessi.id) }}">
+                  <input type="submit" value="Poista"/>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+    </table>
 </fieldset>
+
+
+<form method="GET" action="{{ url_for('prosessitehtava_muokkaa', prosessi_id=prosessi.id) }}">
+    <input type="submit" value="Muokkaa prosessin tehtäviä"/>
+</form>
+
 
 {% endblock %}

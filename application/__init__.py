@@ -28,6 +28,9 @@ from application.auth import views
 from application.prosessi import models
 from application.prosessi import views
 
+from application.prosessitehtava import models
+from application.prosessitehtava import views
+
 
 # kirjautuminen
 from application.auth.models import Kayttaja
