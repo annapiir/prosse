@@ -1,3 +1,5 @@
+{% extends "layout.html" %}
+
 {% block body %}
 
 <fieldset>
@@ -19,14 +21,38 @@
     <legend>Prosessin tehtävät</legend>
         <table>
                 <tr>
-                      <th>Prosessitehtävän ID</th>
-                    </tr>
-                    {% for tehtava in tehtavat %}
-                    <tr>
-                      <td>{{ tehtava.tehtava_id }}</td>
-                    </tr>
-                    {% endfor %}
+                    <th>Prosessitehtävän ID</th>
+                    <th>Tehtävän ID</th>
+                    <th>Nimi</th>
+                    <th>Alkaa</th>
+                    <th>Loppuu</th>
+                    <th>Aloitettu</th>
+                    <th>Valmis</th>
+                    <th>Kommentti</th>
+                    <th>Kommentoija (pvm)</th>
+                    <th></th>
+                </tr>
+                {% for tehtava in tehtavat %}
+                <tr>
+                    <td>{{ tehtava.id }}</td>
+                    <td>{{ tehtava.tehtava_id }}</td>
+                    <td>Tähän tehtävän nimi</td>
+                    <td>{{ tehtava.pvm_alku }}</td>
+                    <td>{{ tehtava.pvm_loppu }}</td>
+                    <td>{{ tehtava.aloitettu }}</td>
+                    <td>{{ tehtava.valmis }}</td>
+                    <td>{{ tehtava.kommentti }}</td>
+                    <td>{{ tehtava.kommentoija }}</td>
+                    <td>
+                        <form method="POST" action="{{ url_for('prosessitehtava_muokkaa', pt_id=tehtava.id, prosessi_id=prosessi.id) }}">
+                            <input type="submit" value="Tallenna muutokset"/>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
             </table>
 </fieldset>
-
+<form method="GET" action="{{ url_for('prosessitehtava_lisays_lomake', prosessi_id=prosessi.id) }}">
+    <input type="submit" value="Lisää tehtävä"></input>
+</form>
 {% endblock %}

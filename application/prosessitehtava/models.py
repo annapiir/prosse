@@ -18,10 +18,12 @@ class Prosessitehtava(Base):
     tehtava_id = db.Column(db.Integer, db.ForeignKey('tehtava.id'))
 
 
-    def __init__(self, prosessi_id, tehtava_id):
+    def __init__(self, prosessi_id, tehtava_id, pvm_alku, pvm_loppu):
         self.aloitettu = False
         self.valmis = False
         self.prosessi_id = prosessi_id
         self.tehtava_id = tehtava_id
+        self.pvm_alku = pvm_alku
+        self.pvm_loppu = pvm_loppu
 
 

@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<fieldset>
+    <legend>Prosessi {{ prosessi.id }}</legend>
+    <p>
+        <b>Nimi:</b> {{ prosessi.prosessin_nimi }}
+    </p>
+    <p>
+        <b>Prosessin omistaja:</b> {{ prosessi.owner_id }}
+    </p>
+    <p>
+        <b>Alkupäivä:</b> {{ prosessi.pvm_alku }}
+    </p>
+    <p>
+        <b>Loppupäivä:</b> {{prosessi.pvm_loppu}}
+    </p>
+</fieldset>
+<fieldset>
+    <legend>Prosessin tehtävät</legend>
+        <table>
+                <tr>
+                    <th>Prosessitehtävän ID</th>
+                    <th>Nimi</th>
+                    <th>Alkaa</th>
+                    <th>Loppuu</th>
+                    <th></th>
+                </tr>
+                    {% for tehtava in tehtavat %}
+                    <tr>
+                      <td>{{ tehtava.tehtava_id }}</td>
+                    </tr>
+                    {% endfor %}
+                <tr>
+                    <form method="POST" action="{{ url_for('prosessitehtava_lisays', 
+                        prosessi_id=prosessi.id) }}">
+                        <th></th>
+                        <th>{{ form.tehtava }}</th>
+                        <th>{{ form.pvm_alku }}</th>
+                        <th>{{ form.pvm_loppu }}</th>
+                        <th>{{ form.tallenna }}</th>
+                    </form>
+                </tr>
+            </table>
+</fieldset>
+
+{% endblock %}

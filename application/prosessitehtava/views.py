@@ -6,6 +6,7 @@ from application.prosessi.models import Prosessi
 from application.auth.models import Kayttaja
 from application.tehtavat.models import Tehtava
 from application.prosessitehtava.models import Prosessitehtava
+from application.prosessitehtava.forms import ProsessitehtavaLisaysLomake
 
 from sqlalchemy.sql import text
 
@@ -43,6 +44,44 @@ def prosessitehtava_lomake():
 #Palauttaa prosessin tietosivun
 @app.route("/prosessitehtava/<prosessi_id>")
 def prosessitehtava_prosessi_nayta(prosessi_id):
+
     prosessi = Prosessi.query.get(prosessi_id)
     tehtavat = Prosessitehtava.query.filter_by(prosessi_id=prosessi_id)
+
     return render_template("/prosessitehtava/list.html", prosessi=prosessi, tehtavat=tehtavat)
+
+#Palauttaa prosessitehtävän lisäyslomakkeen
+@app.route("/prosessitehtava/uusi/<prosessi_id>/", methods=["GET"])
+def prosessitehtava_lisays_lomake(prosessi_id):
+
+    prosessi = Prosessi.query.get(prosessi_id)
+    tehtavat = Prosessitehtava.query.filter_by(prosessi_id=prosessi_id)
+    form = ProsessitehtavaLisaysLomake()
+
+    form.tehtava.choices = [(tehtava.id, tehtava.nimi) for tehtava in Tehtava.query.order_by('id')]
+
+    return render_template("/prosessitehtava/new.html", prosessi=prosessi, tehtavat=tehtavat,
+        form=form)
+
+#Lisää uuden prosessitehtävän tietokantaan
+@app.route("/prosessitehtava/uusi/<prosessi_id>", methods=["POST"])
+def prosessitehtava_lisays(prosessi_id):
+    form = ProsessitehtavaLisaysLomake(request.form)
+
+    #Muista lisätä validoinnit
+
+    #Jos lomake oli ok, luodaan uusi pt-olio ja viedään kantaan
+    pt = Prosessitehtava(prosessi_id, form.tehtava.data, form.pvm_alku.data, form.pvm_loppu.data)
+
+    db.session().add(pt)
+    db.session().commit()
+
+    return redirect(url_for("prosessitehtava_prosessi_nayta", prosessi_id=prosessi_id))
+
+#Tallentaa muokatun tehtävän tiedot kantaan
+@app.route("/prosessitehtava/muokkaa/<prosessi_id>", methods=["POST"])
+def prosessitehtava_muokkaa(pt_id, prosessi_id):
+
+    pt = Prosessitehtava.query.get(pt_id)
+
+    return redirect(url_for("prosessitehtava_prosessi_nayta", prosessi_id=pt.prosessi_id))
