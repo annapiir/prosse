@@ -6,7 +6,7 @@ class Prosessitehtava(Base):
     pvm_alku = db.Column(db.DateTime)
     pvm_loppu = db.Column(db.DateTime)
     pvm_kommentti = db.Column(db.DateTime)
-    kommentti = db.Column(db.String(300))
+    kommentti = db.Column(db.String(300), nullable=True)
     aloitettu = db.Column(db.Boolean, nullable=False)
     valmis = db.Column(db.Boolean, nullable=False)
 
