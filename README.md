@@ -27,6 +27,8 @@ Toimintoja:
 * Työntekijän raportit
 
 
-## Kehitysdokumentaatio
+## Dokumentaatio
+* [Asennusohje](documentation/asennus.md)
+* [Käyttöohje](documentation/kayttoohje.md)
 * [Tietokantakaavio](documentation/prosse_db.png)
 * [Käyttäjätarinat](documentation/userstoryt.md)
