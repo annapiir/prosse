@@ -35,6 +35,9 @@ class Kayttaja(Base):
     def is_authenticated(self):
         return True
 
+    def roles(self):
+        return ["ADMIN"]
+
     @staticmethod
     def montako_prosessia_kayttajalla():
 

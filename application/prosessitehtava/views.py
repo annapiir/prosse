@@ -105,6 +105,7 @@ def prosessitehtava_muokkaa(pt_id, prosessi_id):
     if orig_valmis == False and pt.valmis == True:
         pt.kuittaaja_alku_id = current_user.id
     
+    #Korjaa tämä, nyt on ainakin tyhjänä aina true
     if orig_kommentti != pt.kommentti:
         pt.kommentoija_id = current_user.id
         pt.pvm_kommentti = db.func.current_timestamp()

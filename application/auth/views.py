@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user
 
-from application import app, db
+from application import app, db, login_required
 from application.auth.models import Kayttaja
 from application.auth.forms import KirjautuminenLomake, KayttajaMuokkausLomake, KayttajaLisaysLomake
 
@@ -36,7 +36,7 @@ def kayttaja_lista():
 
 #Käyttäjän tietojen muokkauslomake
 @app.route("/auth/<kayttaja_id>/", methods=["GET"])
-@login_required
+@login_required(role="ADMIN")
 def kayttaja_muokkaa_lomake(kayttaja_id):
 
     #Muodostetaan tehtävä- ja lomakeoliot
@@ -51,7 +51,7 @@ def kayttaja_muokkaa_lomake(kayttaja_id):
 
 #Lähettää muokatun käyttäjän tiedot tietokantaan  
 @app.route("/auth/<kayttaja_id>/", methods=["POST"])
-@login_required
+@login_required(role="ADMIN")
 def kayttaja_muokkaa(kayttaja_id):
     form = KayttajaMuokkausLomake(request.form)
     k = Kayttaja.query.get(kayttaja_id)
