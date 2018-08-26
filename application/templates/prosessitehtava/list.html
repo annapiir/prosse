@@ -8,7 +8,7 @@
         <b>Nimi:</b> {{ prosessi.prosessin_nimi }}
     </p>
     <p>
-        <b>Prosessin omistaja:</b> {{ prosessi.owner_id }}
+        <b>Prosessin omistaja:</b> {{ omistaja_tunnus }}
     </p>
     <p>
         <b>Alkupäivä:</b> {{ prosessi.pvm_alku }}
@@ -21,9 +21,8 @@
     <legend>Prosessin tehtävät</legend>
         <table>
                 <tr>
-                    <th>Prosessitehtävän ID</th>
-                    <th>Tehtävän ID</th>
-                    <th>Nimi</th>
+                    <th>ID</th>
+                    <th>Tehtävä</th>
                     <th>Alkaa</th>
                     <th>Loppuu</th>
                     <th>Aloitettu</th>
@@ -36,16 +35,15 @@
                 <tr>
                     <form method="POST" action="{{ url_for('prosessitehtava_muokkaa', pt_id=lomake.id.data, prosessi_id=prosessi.id) }}">
                         <td>{{ lomake.id.data }}</td>
-                        <td>{{ lomake.tehtava_id.data }}</td>
-                        <td>Tähän tehtävän nimi</td>
+                        <td>{{ lomake.tehtava_nimi.data }}</td>
                         <td>{{ lomake.pvm_alku }}</td>
                         <td>{{ lomake.pvm_loppu }}</td>
                         <td>{{ lomake.aloitettu }}</td>
                         <td>{{ lomake.valmis }}</td>
                         <td>{{ lomake.kommentti }}</td>
-                        <td>{{ lomake.kommentoija_id.data }} ({{ lomake.pvm_kommentti.data }})</td>
+                        <td>{{ lomake.kommentoija_tunnus.data }} ({{ lomake.pvm_kommentti.data }})</td>
                         <td>
-                            <input type="submit" value="Tallenna muutokset"/>
+                            <input type="submit" value="Tallenna"/>
                         </td>
                     </form>
                 </tr>

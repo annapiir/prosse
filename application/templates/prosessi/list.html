@@ -10,10 +10,10 @@
       <th>Loppupäivä</th>
       <th></th>
     </tr>
-    {% for prosessi in prosessit %}
+    {% for omistaja, prosessi in prosessit.items() %}
     <tr>
       <td>{{ prosessi.prosessin_nimi }}</td>
-      <td>{{ prosessi.owner_id }}</td>
+      <td>{{ omistaja }}</td>
       <td>{{ prosessi.pvm_luonti }}</td>
       <td>{{ prosessi.pvm_alku }}</td>
       <td>{{ prosessi.pvm_loppu}}</td>

@@ -30,11 +30,17 @@ def prosessitehtava_lomake():
 def prosessitehtava_prosessi_nayta(prosessi_id):
 
     prosessi = Prosessi.query.get(prosessi_id)
+    omistaja = Kayttaja.query.get(prosessi.owner_id)
+    omistaja_tunnus = omistaja.kayttaja_tunnus()
     tehtavat = Prosessitehtava.query.filter_by(prosessi_id=prosessi_id)
     lomakkeet = []
 
     for tehtava in tehtavat:
+        t = Tehtava.query.get(tehtava.tehtava_id)
+        k = Kayttaja.query.get(tehtava.kommentoija_id)
         form = ProsessitehtavaMuokkausLomake()
+
+        #Esitäytetään lomakkeelle tiedot
         form.pvm_alku.data = tehtava.pvm_alku
         form.pvm_loppu.data = tehtava.pvm_loppu
         form.aloitettu.data = tehtava.aloitettu
@@ -42,11 +48,17 @@ def prosessitehtava_prosessi_nayta(prosessi_id):
         form.kommentti.data = tehtava.kommentti
         form.id.data = tehtava.id
         form.tehtava_id.data = tehtava.tehtava_id
+        form.tehtava_nimi.data = t.tehtavan_nimi()
         form.pvm_kommentti.data = tehtava.pvm_kommentti
         form.kommentoija_id.data = tehtava.kommentoija_id
+        form.kommentoija_tunnus.data = k.kayttaja_tunnus()
+
         lomakkeet.append(form)
 
-    return render_template("/prosessitehtava/list.html", prosessi=prosessi, tehtavat=tehtavat, lomakkeet=lomakkeet)
+    lomakkeet.sort(key=lambda lomake: lomake['pvm_alku'].data)
+
+    return render_template("/prosessitehtava/list.html", prosessi=prosessi, tehtavat=tehtavat, 
+    lomakkeet=lomakkeet, omistaja_tunnus=omistaja_tunnus)
 
 #Palauttaa prosessitehtävän lisäyslomakkeen
 @app.route("/prosessitehtava/uusi/<prosessi_id>/", methods=["GET"])

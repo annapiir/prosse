@@ -13,8 +13,15 @@ from application.tehtavat.models import Tehtava
 def prosessi_lista():
 
     #To do: Yhdistä prosessit käyttäjiin, jotta saat omistajan nimen id:n sijasta
+    #Muodostetaan dictionary, jossa prosessit ja niiden tekijät
+    plista = Prosessi.query.all()
+    prosessit = {}
+
+    for p in plista:
+        omistaja = Kayttaja.query.get(p.owner_id)
+        prosessit[omistaja.tunnus] = p
     
-    return render_template("prosessi/list.html", prosessit = Prosessi.query.all()) 
+    return render_template("prosessi/list.html", prosessit = prosessit) 
 
 #Palauttaa prosessin tiedot
 @app.route("/prosessi/<prosessi_id>/", methods=["GET"])

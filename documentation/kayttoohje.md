@@ -17,7 +17,7 @@ Työtehtäviä pääsee lisäämään yläpalkin __Lisää tehtävät__ -kohdast
 
 Yläpalkin__Listaa tehtävät__ -kohdasta pääsee tarkastelemaan järjestelmään jo lisättyjä tehtäviä. _Näytä_-painikkeesta pääsee tarkastelemaan tehtävän tietoja tarkemmin. Tehtävän näkymästä pääsee muokkaamaan tehtävän kuvausta _Muokkaa_-painikkeesta ja tehtävätyypin voi myös poistaa järjestelmästä _Poista_-painikkeella. 
 
-###Prosessinseuranta
+### Prosessinseuranta
 Yläpalkin __Prosessinseuranta__-kohdasta pääsee lisäämään työprosesseille erilaisia tehtäviä sekä merkkaamaan näitä aloitetuiksi ja valmiiksi tehtävien etenemisen mukaan. Tehtäviä voi myös kommentoida. 
 
 Valitse pudotusvalikosta ensin prosessi, jonka seurantanäkymään haluat päästä. Prosessinseurantanäkymän _Lisää tehtävä_ -painikkeesta pääset lisäämään prosessille uuden tehtävän. Tehtävälle valitaan tehtävätyyppi sekä alku- ja loppupäivä. Kun tehtävä on lisätty prosessiin, sen alku- ja loppupäivää, etenemistä ja kommentteja voi lisätä ja päivittää. Tehtäväkohtaiset muutokset tallennetaan _Tallenna_-painikkeella. 

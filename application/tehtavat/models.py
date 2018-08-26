@@ -11,3 +11,6 @@ class Tehtava(Base):
     def __init__(self, nimi, kuvaus):
         self.nimi = nimi
         self.kuvaus = kuvaus
+
+    def tehtavan_nimi(self):
+        return self.nimi

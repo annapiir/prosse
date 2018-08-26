@@ -35,6 +35,9 @@ class Kayttaja(Base):
     def is_authenticated(self):
         return True
 
+    def kayttaja_tunnus(self):
+        return self.tunnus
+
     def roles(self):
         return ["ADMIN"]
 
