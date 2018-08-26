@@ -4,33 +4,33 @@
       <meta charset="utf-8">
       <title>Prosse</title>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <style>
+          table, th, td {
+              border: 1px solid black;
+              padding: 7px;
+          }
+      </style>
     </head>
 
     <body>
       <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-          <a class="navbar-brand" href="#">Prosse</a>
+          <a class="navbar-brand" href="{{ url_for('index') }}">Prosse</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
                   <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                      <a class="nav-link" href="{{ url_for('tehtavat_lista') }} ">Listaa tehtävät</a>
+                      <a class="nav-link" href="{{ url_for('tehtavat_lista') }} ">Tehtävät</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="{{ url_for('tehtavat_lomake') }} ">Lisää tehtävä</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="{{ url_for('kayttaja_lista') }} ">Käyttäjähallinta</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="{{ url_for('prosessi_lista') }} ">Listaa työprosessit</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="{{ url_for('prosessi_lisays_lomake') }} ">Lisää työprosessi</a>
+                      <a class="nav-link" href="{{ url_for('prosessi_lista') }} ">Työprosessit</a>
                     </li>
                     <li  class="nav-item">
                       <a class="nav-link" href="{{ url_for('prosessitehtava_prosessin_valinta') }}">Prosessinseuranta</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('kayttaja_lista') }} ">Käyttäjähallinta</a>
                     </li>
                   </ul>
                   <div class="form-inline mt-2 mt-md-0">

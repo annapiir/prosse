@@ -56,3 +56,22 @@ class Kayttaja(Base):
                 res = db.engine.execute(stmt)
 
                 return res
+    
+    @staticmethod
+    def kayttajan_prosessit():
+        if current_user.get_id() is None:
+            return "Ei käyttäjää"
+        else:
+            kayttaja_id = current_user.get_id()
+            stmt = text("SELECT Prosessi.id as prosessi_id, Prosessi.prosessin_nimi as prosessin_nimi FROM Prosessi"
+                        " LEFT JOIN Kayttaja ON Prosessi.owner_id = Kayttaja.id"
+                        " WHERE Kayttaja.id = :kayttaja_id").params(kayttaja_id=kayttaja_id)
+            
+            res = db.engine.execute(stmt)
+
+            prosessit = []
+            
+            for prosessi in res:
+                prosessit.append(prosessi)
+
+            return prosessit

@@ -11,12 +11,14 @@
         <b>Prosessin omistaja:</b> {{ omistaja_tunnus }}
     </p>
     <p>
-        <b>Alkupäivä:</b> {{ prosessi.pvm_alku }}
+        <b>Alkupäivä:</b> {{ prosessi.pvm_alku.date() }}
     </p>
     <p>
-        <b>Loppupäivä:</b> {{prosessi.pvm_loppu}}
+        <b>Loppupäivä:</b> {{prosessi.pvm_loppu.date()}}
     </p>
 </fieldset>
+
+{% if lomakkeet %}
 <fieldset>
     <legend>Prosessin tehtävät</legend>
         <table>
@@ -50,6 +52,13 @@
                 {% endfor %}
             </table>
 </fieldset>
+
+{% else %}
+
+<p>Prosessille ei ole vielä lisätty tehtäviä</p>
+
+{% endif %}
+<p></p>
 <form method="GET" action="{{ url_for('prosessitehtava_lisays_lomake', prosessi_id=prosessi.id) }}">
     <input type="submit" value="Lisää tehtävä"></input>
 </form>

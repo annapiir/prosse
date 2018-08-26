@@ -9,8 +9,15 @@
   
     {% for prosessi in prosessit_lkm %}
     <p>
-      Käyttäjä {{ prosessi.id }} ({{ prosessi.nimi }}) omistaa {{ prosessi.lkm }} prosessia
+      Omistat {{ prosessi.lkm }} prosessia:
     </p>
+    <ul>
+      {% for prosessi in prosessit %}
+      <li>
+        <a href="{{ url_for('prosessitehtava_prosessi_nayta', prosessi_id=prosessi.prosessi_id) }}">{{ prosessi.prosessin_nimi }}</a>
+      </li>
+      {% endfor %}
+    </ul>
     {% endfor %}
   
   {% endif %}

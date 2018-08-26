@@ -16,14 +16,6 @@ from sqlalchemy.sql import text
 def prosessitehtava_prosessin_valinta():
     return render_template("/prosessitehtava/prosessi.html", prosessit=Prosessi.query.all())
 
-#Hakee näytettävän prosessin
-@app.route("/prosessitehtava/", methods=["POST"])
-@login_required
-def prosessitehtava_lomake():
-    prosessi_id = request.form["prosessit"]
-
-    return redirect(url_for("prosessitehtava_prosessi_nayta", prosessi_id=prosessi_id))
-
 #Palauttaa prosessin tietosivun
 @app.route("/prosessitehtava/<prosessi_id>")
 @login_required
@@ -37,7 +29,12 @@ def prosessitehtava_prosessi_nayta(prosessi_id):
 
     for tehtava in tehtavat:
         t = Tehtava.query.get(tehtava.tehtava_id)
-        k = Kayttaja.query.get(tehtava.kommentoija_id)
+
+        if tehtava.kommentoija_id:
+            k = Kayttaja.query.get(tehtava.kommentoija_id)
+        else:
+            k = None
+
         form = ProsessitehtavaMuokkausLomake()
 
         #Esitäytetään lomakkeelle tiedot
@@ -51,7 +48,11 @@ def prosessitehtava_prosessi_nayta(prosessi_id):
         form.tehtava_nimi.data = t.tehtavan_nimi()
         form.pvm_kommentti.data = tehtava.pvm_kommentti
         form.kommentoija_id.data = tehtava.kommentoija_id
-        form.kommentoija_tunnus.data = k.kayttaja_tunnus()
+
+        if k != None:
+            form.kommentoija_tunnus.data = k.kayttaja_tunnus()
+        else:
+            form.kommentoija_tunnus.data = None
 
         lomakkeet.append(form)
 
@@ -59,6 +60,14 @@ def prosessitehtava_prosessi_nayta(prosessi_id):
 
     return render_template("/prosessitehtava/list.html", prosessi=prosessi, tehtavat=tehtavat, 
     lomakkeet=lomakkeet, omistaja_tunnus=omistaja_tunnus)
+
+#Hakee näytettävän prosessin
+@app.route("/prosessitehtava/", methods=["POST"])
+@login_required
+def prosessitehtava_lomake():
+    prosessi_id = request.form["prosessit"]
+
+    return redirect(url_for("prosessitehtava_prosessi_nayta", prosessi_id=prosessi_id))
 
 #Palauttaa prosessitehtävän lisäyslomakkeen
 @app.route("/prosessitehtava/uusi/<prosessi_id>/", methods=["GET"])

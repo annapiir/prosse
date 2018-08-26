@@ -14,9 +14,9 @@
     <tr>
       <td>{{ prosessi.prosessin_nimi }}</td>
       <td>{{ omistaja }}</td>
-      <td>{{ prosessi.pvm_luonti }}</td>
-      <td>{{ prosessi.pvm_alku }}</td>
-      <td>{{ prosessi.pvm_loppu}}</td>
+      <td>{{ prosessi.pvm_luonti.date() }}</td>
+      <td>{{ prosessi.pvm_alku.date() }}</td>
+      <td>{{ prosessi.pvm_loppu.date()}}</td>
       <td>
         <form method="GET" action="{{ url_for('prosessi_nayta', prosessi_id=prosessi.id) }}">
           <input type="submit" value="Näytä"/>
@@ -25,4 +25,9 @@
     </tr>
     {% endfor %}
   </table>
+
+  <p></p>
+  <form method="GET" action="{{ url_fot('prosessi_lisays_lomake') }}">
+    <input type="submit" value="Lisää prosessi"/>
+  </form>
 {% endblock %}
