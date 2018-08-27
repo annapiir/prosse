@@ -10,10 +10,10 @@
       <th>Loppupäivä</th>
       <th></th>
     </tr>
-    {% for prosessi in prosessit. %}
+    {% for prosessi in prosessit %}
     <tr>
       <td>{{ prosessi.prosessin_nimi }}</td>
-      <td>{{ prosessit[prosessi] }}</td>
+      <td>To do</td>
       <td>{{ prosessi.pvm_luonti.date() }}</td>
       <td>{{ prosessi.pvm_alku.date() }}</td>
       <td>{{ prosessi.pvm_loppu.date()}}</td>
