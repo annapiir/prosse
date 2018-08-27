@@ -14,6 +14,7 @@ def prosessi_lista():
 
     #To do: Yhdistä prosessit käyttäjiin, jotta saat omistajan nimen id:n sijasta
     #Muodostetaan dictionary, jossa prosessit ja niiden tekijät
+    #Korjaa tämä, pitää olla pt-id keyna ja siihen liittyen lista, jossa jäseninä omistaja ja prosessi
     plista = Prosessi.query.all()
     prosessit = {}
 

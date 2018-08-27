@@ -41,25 +41,51 @@ Hyväksymiskriteerit:
 * Tallennettaessa luonti- ja muokkauspäiväksi tulee tallennushetki
 
 
+### Käyttäjän tietojen muokkaus
+
+Käyttäjä muokkaa muiden käyttäjien ja omia tietojaan, koska tiedot ovat muuttuneet tai salasana unohtunut
+
+Hyväksymiskriteerit:
+* Käyttäjä voi valita oman tai muun käyttäjän tiedot muokattavaksi
+* Sovellus antaa käyttäjän senhetkiset tiedot lomakkeella
+* Käyttäjän nimeä ja salasanaa voi muokata 
+
+
 ### Työprosessin lisääminen
 
 Käyttäjä lisää uuden työprosessin
 
 Hyväksymiskriteerit:
 * Päävalikosta pääsee työprosessin lisäyssivulle
-* Prosessille määritellään nimi, alkupäivä, loppupäivä ja omistaja käyttäjistä
-* Prosessiin lisätään prosessikohtaisia tehtäviä tehtävälistauksesta
+* Prosessille määritellään nimi, alkupäivä, loppupäivä ja omistajaksi prosessin lisääjä
+
+
+### Työprosessin ja siihen liittyvien tehtävien listaus
+
+Käyttäjä pääsee tarkastelemaan prosessin ja siihen liitettyjen tehtävien tietoja
+
+Hyväksymiskriteerit:
+* Käyttäjä valitsee listalta olemassa olevan prosessin, jonka tiedot tulevat näytölle
+* Näytetään sekä prosessin tiedot että siihen liitetyt tehtävät listauksena
+
+
+### Tehtävien lisääminen työprosessiin
+
+Käyttäjä voi lisätä valitsemaansa työprosessiin tehtäviä
+
+Hyväksymiskriteerit:
+* Prosessinseurantanäytöllä on painike, josta lisätään uusi tehtävä
+* Tehtävälistan jatkeeksi tulee uusi rivi, josta valitaan tehtävätyyppi, alkamisaika ja päättymisaika
+* Tiedot tallennetaan osaksi prosessin tehtäviä
 * Prosessikohtaisille tehtäville määritellään tekijät
-* Prosessi tallennetaan 
 
 
 ### Työprosessin tehtävien päivittäminen
 
-Käyttäjät voivat päivittää työprosessin tehtäviä aloitetuiksi ja tehdyiksi
+Käyttäjät voivat päivittää työprosessin tehtäviä aloitetuiksi ja tehdyiksi, lisätä niihin kommentija muokata alku- ja loppupäiviä
 
 Hyväksymiskriteerit:
-* Käyttäjä valitsee haluamansa työprosessin prosessien listauksesta 
-* Käyttäjä näkee valitsemansa prosessin tiedot
+* Käyttäjä voi muokata tehtävän tietoja tehtävälistauksessa
 * Käyttäjä voi päivittää tehtävän aloitetuksi (jos aloittamatta) ja tehdyksi (jos aloitettu)
 ** Sovellus päivittää aloitus- ja valmistumisajat vastaavasti
 ** Samalla päivitetään myös kuittaus tehtävän aloittaneesta/lopettaneesta käyttäjästä

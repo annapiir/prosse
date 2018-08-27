@@ -10,10 +10,10 @@
       <th>Loppupäivä</th>
       <th></th>
     </tr>
-    {% for omistaja, prosessi in prosessit.items() %}
+    {% for prosessi in prosessit. %}
     <tr>
       <td>{{ prosessi.prosessin_nimi }}</td>
-      <td>{{ omistaja }}</td>
+      <td>{{ prosessit[prosessi] }}</td>
       <td>{{ prosessi.pvm_luonti.date() }}</td>
       <td>{{ prosessi.pvm_alku.date() }}</td>
       <td>{{ prosessi.pvm_loppu.date()}}</td>
@@ -27,7 +27,7 @@
   </table>
 
   <p></p>
-  <form method="GET" action="{{ url_fot('prosessi_lisays_lomake') }}">
+  <form method="GET" action="{{ url_for('prosessi_lisays_lomake') }}">
     <input type="submit" value="Lisää prosessi"/>
   </form>
 {% endblock %}
