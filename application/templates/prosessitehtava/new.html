@@ -25,6 +25,7 @@
                     <th>Nimi</th>
                     <th>Alkaa</th>
                     <th>Loppuu</th>
+                    <th>Tekijä</th>
                     <th></th>
                 </tr>
                     {% for tehtava in tehtavat %}
@@ -39,6 +40,7 @@
                         <th>{{ form.tehtava }}</th>
                         <th>{{ form.pvm_alku }}</th>
                         <th>{{ form.pvm_loppu }}</th>
+                        <th>{{ form.tekija }}</th>
                         <th>{{ form.tallenna }}</th>
                     </form>
                 </tr>

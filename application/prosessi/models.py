@@ -13,6 +13,8 @@ class Prosessi(Base):
 
     prosessitehtavat = db.relationship("Prosessitehtava", backref='prosessi', lazy=True)
 
+    db.Index('idx_prosessi', prosessin_nimi, owner_id)
+
     def __init__(self, prosessin_nimi, owner_id, pvm_alku, pvm_loppu):
         self.prosessin_nimi = prosessin_nimi
         self.owner_id = owner_id

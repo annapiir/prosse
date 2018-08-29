@@ -11,10 +11,10 @@
         <b>Prosessin omistaja:</b> {{ omistaja_tunnus }}
     </p>
     <p>
-        <b>Alkupäivä:</b> {{ prosessi.pvm_alku.date() }}
+        <b>Alkupäivä:</b> {{ prosessi.pvm_alku }}
     </p>
     <p>
-        <b>Loppupäivä:</b> {{prosessi.pvm_loppu.date()}}
+        <b>Loppupäivä:</b> {{prosessi.pvm_loppu }}
     </p>
 </fieldset>
 
@@ -27,6 +27,7 @@
                     <th>Tehtävä</th>
                     <th>Alkaa</th>
                     <th>Loppuu</th>
+                    <th>Tekijät</th>
                     <th>Aloitettu</th>
                     <th>Valmis</th>
                     <th>Kommentti</th>
@@ -40,6 +41,14 @@
                         <td>{{ lomake.tehtava_nimi.data }}</td>
                         <td>{{ lomake.pvm_alku }}</td>
                         <td>{{ lomake.pvm_loppu }}</td>
+                        <td>
+                            <ul>
+                                {% for tekija in lomake.nykyiset_tekijat.choices %}
+                                <li>{{ tekija[1] }}</li>
+                                {% endfor %}
+                            </ul>  
+                            {{ lomake.tekija }}  
+                        </td>
                         <td>{{ lomake.aloitettu }}</td>
                         <td>{{ lomake.valmis }}</td>
                         <td>{{ lomake.kommentti }}</td>

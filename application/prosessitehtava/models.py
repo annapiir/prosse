@@ -1,6 +1,7 @@
 from application import db
 from application.models import Base
 
+
 class Prosessitehtava(Base):
 
     pvm_alku = db.Column(db.DateTime)
@@ -26,4 +27,12 @@ class Prosessitehtava(Base):
         self.pvm_alku = pvm_alku
         self.pvm_loppu = pvm_loppu
 
+class Tekija(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    pt_id = db.Column(db.Integer, db.ForeignKey('prosessitehtava.id'))
+    tekija_id = db.Column(db.Integer, db.ForeignKey('kayttaja.id'))
 
+
+    def __init__(self, pt_id, tekija_id):
+        self.pt_id = pt_id
+        self.tekija_id = tekija_id

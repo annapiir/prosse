@@ -17,6 +17,7 @@ class Kayttaja(Base):
     pt_kommentoija = db.relationship("Prosessitehtava", backref='kommentoija', foreign_keys=[Prosessitehtava.kommentoija_id], lazy=True)
     pt_kuittaaja_alku = db.relationship("Prosessitehtava", backref='kuittaaja_alku', foreign_keys=[Prosessitehtava.kuittaaja_alku_id], lazy=True)
     pt_kuittaaja_loppu = db.relationship("Prosessitehtava", backref='kuittaaja_loppu', foreign_keys=[Prosessitehtava.kuittaaja_loppu_id], lazy=True)
+    tekija = db.relationship("Tekija", backref='tekija', lazy=True)
 
     def __init__(self, kayttajan_nimi, tunnus, salasana):
         self.kayttajan_nimi = kayttajan_nimi

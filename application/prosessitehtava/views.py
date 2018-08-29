@@ -5,10 +5,10 @@ from application import app, db
 from application.prosessi.models import Prosessi
 from application.auth.models import Kayttaja
 from application.tehtavat.models import Tehtava
-from application.prosessitehtava.models import Prosessitehtava
+from application.prosessitehtava.models import Prosessitehtava, Tekija
 from application.prosessitehtava.forms import ProsessitehtavaLisaysLomake, ProsessitehtavaMuokkausLomake
 
-from sqlalchemy.sql import text
+from sqlalchemy.sql import text, func
 
 #Palauttaa prosessinvalintalistan
 @app.route("/prosessitehtava/", methods=["GET"])
@@ -38,8 +38,16 @@ def prosessitehtava_prosessi_nayta(prosessi_id):
         form = ProsessitehtavaMuokkausLomake()
 
         #Esitäytetään lomakkeelle tiedot
-        form.pvm_alku.data = tehtava.pvm_alku
-        form.pvm_loppu.data = tehtava.pvm_loppu
+        if tehtava.pvm_alku:
+            form.pvm_alku.data = tehtava.pvm_alku.date()
+        else:
+            form.pvm_alku.data = None
+
+        if tehtava.pvm_loppu:
+            form.pvm_loppu.data = tehtava.pvm_loppu.date()
+        else:
+            form.pvm_loppu.data = None
+
         form.aloitettu.data = tehtava.aloitettu
         form.valmis.data = tehtava.valmis
         form.kommentti.data = tehtava.kommentti
@@ -48,6 +56,9 @@ def prosessitehtava_prosessi_nayta(prosessi_id):
         form.tehtava_nimi.data = t.tehtavan_nimi()
         form.pvm_kommentti.data = tehtava.pvm_kommentti
         form.kommentoija_id.data = tehtava.kommentoija_id
+        form.tekija.choices = [(tekija.id, tekija.tunnus) for tekija in Kayttaja.query.all()]
+        form.tekija.choices.insert(0, (0, "Lisää uusi"))
+        form.nykyiset_tekijat.choices = [(tekija.id, tekija.tekija_id) for tekija in Tekija.query.filter_by(pt_id=tehtava.id)]
 
         if k != None:
             form.kommentoija_tunnus.data = k.kayttaja_tunnus()
@@ -78,6 +89,7 @@ def prosessitehtava_lisays_lomake(prosessi_id):
     tehtavat = Prosessitehtava.query.filter_by(prosessi_id=prosessi_id)
     form = ProsessitehtavaLisaysLomake()
 
+    form.tekija.choices = [(tekija.id, tekija.tunnus) for tekija in Kayttaja.query.all()]
     form.tehtava.choices = [(tehtava.id, tehtava.nimi) for tehtava in Tehtava.query.order_by('id')]
 
     return render_template("/prosessitehtava/new.html", prosessi=prosessi, tehtavat=tehtavat,
@@ -93,9 +105,15 @@ def prosessitehtava_lisays(prosessi_id):
 
     #Jos lomake oli ok, luodaan uusi pt-olio ja viedään kantaan
     pt = Prosessitehtava(prosessi_id, form.tehtava.data, form.pvm_alku.data, form.pvm_loppu.data)
-
     db.session().add(pt)
     db.session().commit()
+
+    pt_id = db.session.query(func.max(Prosessitehtava.id)).scalar()
+    tekija = Tekija(pt_id, int(form.tekija.data))
+    db.session().add(tekija)
+    db.session().commit()
+ 
+
 
     return redirect(url_for("prosessitehtava_prosessi_nayta", prosessi_id=prosessi_id))
 
@@ -131,7 +149,9 @@ def prosessitehtava_muokkaa(pt_id, prosessi_id):
         pt.kommentoija_id = current_user.id
         pt.pvm_kommentti = db.func.current_timestamp()
 
-    print("Alkupäivä:" + str(pt.pvm_alku))
+    if Kayttaja.query.get(form.tekija.data):
+        tekija = Tekija(pt_id, int(form.tekija.data))
+        db.session.add(tekija)
     
     db.session().commit()
 
