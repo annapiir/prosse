@@ -30,6 +30,22 @@ def prosessitehtava_prosessi_nayta(prosessi_id):
     for tehtava in tehtavat:
         t = Tehtava.query.get(tehtava.tehtava_id)
 
+        hae_tekijat = text("SELECT Kayttaja.id, Kayttaja.tunnus FROM Kayttaja"
+                    " JOIN Tekija on Kayttaja.id = Tekija.tekija_id"
+                    " WHERE Tekija.pt_id = :tehtava_id").params(tehtava_id = tehtava.id)
+        tekijat = db.engine.execute(hae_tekijat)
+
+        hae_uudet_tekijat = text("SELECT Kayttaja.id, Kayttaja.tunnus FROM Kayttaja"
+                    " WHERE Kayttaja.id NOT IN" 
+                    " (SELECT Tekija.tekija_id FROM Tekija WHERE Tekija.pt_id = :tehtava_id)").params(tehtava_id = tehtava.id)
+
+        lista = db.engine.execute(hae_uudet_tekijat)
+        uudet_tekijat = []
+        for tekija in lista:
+            uudet_tekijat.append([tekija.id, tekija.tunnus])
+
+        print(uudet_tekijat)
+
         if tehtava.kommentoija_id:
             k = Kayttaja.query.get(tehtava.kommentoija_id)
         else:
@@ -56,9 +72,9 @@ def prosessitehtava_prosessi_nayta(prosessi_id):
         form.tehtava_nimi.data = t.tehtavan_nimi()
         form.pvm_kommentti.data = tehtava.pvm_kommentti
         form.kommentoija_id.data = tehtava.kommentoija_id
-        form.tekija.choices = [(tekija.id, tekija.tunnus) for tekija in Kayttaja.query.all()]
+        form.tekija.choices = uudet_tekijat
         form.tekija.choices.insert(0, (0, "Lisää uusi"))
-        form.nykyiset_tekijat.choices = [(tekija.id, tekija.tekija_id) for tekija in Tekija.query.filter_by(pt_id=tehtava.id)]
+        form.nykyiset_tekijat.choices = tekijat
 
         if k != None:
             form.kommentoija_tunnus.data = k.kayttaja_tunnus()

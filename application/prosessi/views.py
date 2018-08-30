@@ -1,5 +1,6 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import current_user, login_required
+from sqlalchemy import text
 
 from application import app, db
 from application.prosessi.models import Prosessi
@@ -12,7 +13,12 @@ from application.tehtavat.models import Tehtava
 @app.route("/prosessi/")
 def prosessi_lista():
 
-    plista = Prosessi.query.join(Kayttaja).all()
+    stmt = text("SELECT Prosessi.prosessin_nimi as prosessin_nimi, SUBSTR(Prosessi.pvm_luonti, 1, 10) as pvm_luonti, SUBSTR(Prosessi.pvm_alku, 1, 10) as pvm_alku, SUBSTR(Prosessi.pvm_loppu, 1, 10) as pvm_loppu, Kayttaja.tunnus as kayttajan_nimi"
+                " FROM Prosessi JOIN Kayttaja ON Prosessi.owner_id = Kayttaja.id")
+    plista = db.engine.execute(stmt)
+
+    #plista = db.session.query(Prosessi, Kayttaja).join(Kayttaja).all()
+    print(plista)
     
     return render_template("prosessi/list.html", prosessit = plista) 
 

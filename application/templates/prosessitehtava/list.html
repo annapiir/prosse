@@ -11,10 +11,10 @@
         <b>Prosessin omistaja:</b> {{ omistaja_tunnus }}
     </p>
     <p>
-        <b>Alkupäivä:</b> {{ prosessi.pvm_alku }}
+        <b>Alkupäivä:</b> {{ prosessi.pvm_alku.date() }}
     </p>
     <p>
-        <b>Loppupäivä:</b> {{prosessi.pvm_loppu }}
+        <b>Loppupäivä:</b> {{prosessi.pvm_loppu.date() }}
     </p>
 </fieldset>
 
@@ -39,8 +39,8 @@
                     <form method="POST" action="{{ url_for('prosessitehtava_muokkaa', pt_id=lomake.id.data, prosessi_id=prosessi.id) }}">
                         <td>{{ lomake.id.data }}</td>
                         <td>{{ lomake.tehtava_nimi.data }}</td>
-                        <td>{{ lomake.pvm_alku }}</td>
-                        <td>{{ lomake.pvm_loppu }}</td>
+                        <td>{{ lomake.pvm_alku(style="width: 100px;") }}</td>
+                        <td>{{ lomake.pvm_loppu(style="width: 100px;") }}</td>
                         <td>
                             <ul>
                                 {% for tekija in lomake.nykyiset_tekijat.choices %}

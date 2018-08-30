@@ -13,10 +13,10 @@
     {% for prosessi in prosessit %}
     <tr>
       <td>{{ prosessi.prosessin_nimi }}</td>
-      <td>To do</td>
-      <td>{{ prosessi.pvm_luonti.date() }}</td>
-      <td>{{ prosessi.pvm_alku.date() }}</td>
-      <td>{{ prosessi.pvm_loppu.date()}}</td>
+      <td>{{ prosessi.kayttajan_nimi }}</td>
+      <td>{{ prosessi.pvm_luonti }}</td>
+      <td>{{ prosessi.pvm_alku }}</td>
+      <td>{{ prosessi.pvm_loppu }}</td>
       <td>
         <form method="GET" action="{{ url_for('prosessi_nayta', prosessi_id=prosessi.id) }}">
           <input type="submit" value="Näytä"/>
