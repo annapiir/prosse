@@ -19,7 +19,14 @@
       {% endfor %}
     </ul>
     {% endfor %}
-  
+  {% endif %}
+
+  {% if tehtavat_lkm != "Ei käyttäjää" %}
+    {% for tehtava in tehtavat_lkm %}
+    <p>
+      Sinulla on {{ tehtava.lkm }} keskeneräistä tehtävää
+    </p>
+    {% endfor %}
   {% endif %}
 
 {% endblock %}

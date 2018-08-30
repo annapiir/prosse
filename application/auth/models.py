@@ -76,3 +76,21 @@ class Kayttaja(Base):
                 prosessit.append(prosessi)
 
             return prosessit
+    
+
+    @staticmethod
+    def kayttajan_keskeneraiset_tehtavat_lkm():
+        if current_user.get_id() is None:
+            return "Ei käyttäjää"
+        else:
+            kayttaja_id = current_user.get_id()
+            stmt = text("SELECT COUNT(Prosessitehtava.id) as lkm FROM Prosessitehtava"
+                        " JOIN Tekija ON Tekija.pt_id = Prosessitehtava.id"
+                        " WHERE Tekija.tekija_id = :kayttaja"
+                        " AND Prosessitehtava.aloitettu"
+                        " AND NOT Prosessitehtava.valmis").params(kayttaja=kayttaja_id)
+            
+            res = db.engine.execute(stmt)
+
+            return res
+

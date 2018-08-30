@@ -31,6 +31,7 @@ def auth_logout():
 
 #Käyttäjien listaus
 @app.route("/auth/users")
+@login_required(role="ADMIN")
 def kayttaja_lista():
     return render_template("auth/list.html", kayttajat = Kayttaja.query.all()) 
 

@@ -60,7 +60,7 @@ Hyväksymiskriteerit:
 * Prosessille määritellään nimi, alkupäivä, loppupäivä ja omistajaksi prosessin lisääjä
 
 
-### Työprosessin ja siihen liittyvien tehtävien listaus
+### Työprosessin ja siihen liittyvien tehtävien listaus (prosessinseuranta)
 
 Käyttäjä pääsee tarkastelemaan prosessin ja siihen liitettyjen tehtävien tietoja
 
@@ -89,3 +89,13 @@ Hyväksymiskriteerit:
 * Käyttäjä voi päivittää tehtävän aloitetuksi (jos aloittamatta) ja tehdyksi (jos aloitettu)
 ** Sovellus päivittää aloitus- ja valmistumisajat vastaavasti
 ** Samalla päivitetään myös kuittaus tehtävän aloittaneesta/lopettaneesta käyttäjästä
+
+### Tekijöiden lisääminen työprosessin tehtäville
+
+Käyttäjät voivat lisätä tekijöitä työprosessin tehtäville
+
+Hyväksymiskriteerit:
+* Käyttäjälle näytetään lista tekijöistä, jotka tehtävällä jo on
+* Käyttäjä voi valita pudotusvalikosta lisätekijän tehtävälle
+** Valikossa näytetään vain ne käyttäjät, joita ei ole vielä lisätty tekijöiksi tehtävälle
+* Uusi käyttäjä tallennetaan Tallenna-painikkeella
