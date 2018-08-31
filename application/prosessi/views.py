@@ -14,7 +14,7 @@ from application.tehtavat.models import Tehtava
 @app.route("/prosessi/")
 def prosessi_lista():
 
-    stmt = text("SELECT Prosessi.prosessin_nimi as prosessin_nimi, SUBSTR(Prosessi.pvm_luonti, 1, 10) as pvm_luonti, SUBSTR(Prosessi.pvm_alku, 1, 10) as pvm_alku, SUBSTR(Prosessi.pvm_loppu, 1, 10) as pvm_loppu, Kayttaja.tunnus as kayttajan_nimi"
+    stmt = text("SELECT Prosessi.prosessin_nimi as prosessin_nimi, Prosessi.pvm_luonti as pvm_luonti, Prosessi.pvm_alku as pvm_alku, Prosessi.pvm_loppu as pvm_loppu, Kayttaja.tunnus as kayttajan_nimi"
                 " FROM Prosessi JOIN Kayttaja ON Prosessi.owner_id = Kayttaja.id")
     plista = db.engine.execute(stmt)
     
