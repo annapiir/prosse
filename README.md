@@ -31,4 +31,6 @@ Toimintoja:
 * [Asennusohje](documentation/asennus.md)
 * [Käyttöohje](documentation/kayttoohje.md)
 * [Tietokantakaavio](documentation/prosse_db.png)
+** [Create table -lauseet](documentation/create_table.md)
 * [Käyttäjätarinat](documentation/userstoryt.md)
+* [Mitä jäi tekemättä?](documentation/rajoitteet.md)
