@@ -1,5 +1,6 @@
 ### Create table -lauseet ja indeksit
 
+'''
 CREATE TABLE kayttaja (
 	id INTEGER NOT NULL, 
 	pvm_luonti DATETIME, 
@@ -70,4 +71,5 @@ CREATE TABLE tekija (
 	FOREIGN KEY(pt_id) REFERENCES prosessitehtava (id), 
 	FOREIGN KEY(tekija_id) REFERENCES kayttaja (id)
 )
+'''
 
