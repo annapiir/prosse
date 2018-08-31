@@ -41,13 +41,12 @@ def prosessitehtava_prosessi_nayta(prosessi_id):
         hae_uudet_tekijat = text("SELECT Kayttaja.id, Kayttaja.tunnus FROM Kayttaja"
                     " WHERE Kayttaja.id NOT IN" 
                     " (SELECT Tekija.tekija_id FROM Tekija WHERE Tekija.pt_id = :tehtava_id)").params(tehtava_id = tehtava.id)
-
         lista = db.engine.execute(hae_uudet_tekijat)
+        
         uudet_tekijat = []
         for tekija in lista:
             uudet_tekijat.append([tekija.id, tekija.tunnus])
 
-        print(uudet_tekijat)
 
         if tehtava.kommentoija_id:
             k = Kayttaja.query.get(tehtava.kommentoija_id)
@@ -109,8 +108,8 @@ def prosessitehtava_lisays_lomake(prosessi_id):
     tehtavat = Prosessitehtava.query.filter_by(prosessi_id=prosessi_id)
     form = ProsessitehtavaLisaysLomake()
 
-    form.tekija.choices = [(tekija.id, tekija.tunnus) for tekija in Kayttaja.query.all()]
-    form.tehtava.choices = [(tehtava.id, tehtava.nimi) for tehtava in Tehtava.query.order_by('id')]
+    form.tekija.choices = [(str(tekija.id), tekija.tunnus) for tekija in Kayttaja.query.all()]
+    form.tehtava.choices = [(str(tehtava.id), tehtava.nimi) for tehtava in Tehtava.query.order_by('id')]
 
     return render_template("/prosessitehtava/new.html", prosessi=prosessi, tehtavat=tehtavat,
         form=form)
@@ -121,8 +120,13 @@ def prosessitehtava_lisays_lomake(prosessi_id):
 @login_required
 def prosessitehtava_lisays(prosessi_id):
     form = ProsessitehtavaLisaysLomake(request.form)
+    form.tekija.choices = [(str(tekija.id), tekija.tunnus) for tekija in Kayttaja.query.all()]
+    form.tehtava.choices = [(str(tehtava.id), tehtava.nimi) for tehtava in Tehtava.query.order_by('id')]
 
-    pt = Prosessitehtava(prosessi_id, form.tehtava.data, form.pvm_alku.data, form.pvm_loppu.data)
+    if not form.validate():
+        return render_template("/prosessitehtava/new.html", form = form)
+
+    pt = Prosessitehtava(prosessi_id, int(form.tehtava.data), form.pvm_alku.data, form.pvm_loppu.data)
     db.session().add(pt)
     db.session().commit()
 

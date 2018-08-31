@@ -4,8 +4,8 @@ from wtforms import DateField, StringField, SubmitField, validators, SelectField
 
 class ProsessitehtavaLisaysLomake(FlaskForm):
     tehtava = SelectField("Tehtävä")
-    pvm_alku = DateField("Alkaa", format='%d.%m.%Y')
-    pvm_loppu = DateField("Päättyy", format='%d.%m.%Y')
+    pvm_alku = DateField("Alkaa", [validators.InputRequired(message="Anna alkupäivä")], format='%d.%m.%Y')
+    pvm_loppu = DateField("Päättyy", [validators.InputRequired(message="Anna loppupäivä")], format='%d.%m.%Y')
     tekija = SelectField("Tekijä")
     tallenna = SubmitField("Tallenna")
     

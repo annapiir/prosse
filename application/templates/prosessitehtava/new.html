@@ -27,22 +27,24 @@
                     <th>Tekijä</th>
                     <th></th>
                 </tr>
-                    {% for tehtava in tehtavat %}
-                    <tr>
-                      <td>{{ tehtava.tehtava_id }}</td>
-                    </tr>
-                    {% endfor %}
                 <tr>
                     <form method="POST" action="{{ url_for('prosessitehtava_lisays', 
                         prosessi_id=prosessi.id) }}">
-                        <th>{{ form.tehtava }}</th>
-                        <th>
-                            <p>Älä jätä tyhjäksi</p>
-                            <p>{{ form.pvm_alku }}</p>
-                        </th>
-                        <th>{{ form.pvm_loppu }}</th>
-                        <th>{{ form.tekija }}</th>
-                        <th>{{ form.tallenna }}</th>
+                        <td>{{ form.tehtava }}</td>
+                        <td>
+                            {{ form.pvm_alku }}
+                            {% for error in form.pvm_alku.errors %}
+                                 <li>{{ error }}</li>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {{ form.pvm_loppu }}
+                            {% for error in form.pvm_loppu.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </td>
+                        <td>{{ form.tekija }}</td>
+                        <td>{{ form.tallenna }}</td>
                     </form>
                 </tr>
             </table>

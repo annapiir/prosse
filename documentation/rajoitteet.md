@@ -15,4 +15,9 @@
 ** Työntekijän raportit osittain
 
 
+### Bugit (tähän mennessä löytyneet)
+* Kun prosessin tehtävää muokkaa, tyhjä kommentti tallentuu myös muokatuksi, vaikka sen olisi jättänyt tyhjäksi
+
+
+
 
