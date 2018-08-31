@@ -8,9 +8,9 @@ Hyväksymiskriteerit:
 * Uusi tehtävä tallennetaan painikkeella
 * Tehtävä saa lisäys- ja muokkauspäiväksi tallennushetken
 
-'''
+```
 INSERT INTO Tehtava (nimi, kuvaus, pvm_luonti, pvm_muokkaus) VALUES ('Tehtävän nimi', 'Tehtävän kuvaus', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) 
-'''
+```
 
 
 ### Tehtävien listaus
