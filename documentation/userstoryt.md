@@ -8,7 +8,7 @@ Hyväksymiskriteerit:
 * Uusi tehtävä tallennetaan painikkeella
 * Tehtävä saa lisäys- ja muokkauspäiväksi tallennushetken
 
-```
+```sql
 INSERT INTO Tehtava (nimi, kuvaus, pvm_luonti, pvm_muokkaus) VALUES ('Tehtävän nimi', 'Tehtävän kuvaus', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) 
 ```
 
@@ -21,9 +21,9 @@ Hyväksymiskriteerit:
 * Pääsivulta pääsee linkin kautta listaukseen
 * Sovellus näyttää listan kaikista järjestelmään kirjatuista tehtävistä
 
-'''
+```sql
 SELECT * FROM Tehtava
-'''
+```
 
 
 ### Tehtävän muokkaus
@@ -38,15 +38,15 @@ Hyväksymiskriteerit:
 * Tehtävän muokkauspäivä päivittyy tallennushetkeen
 
 Valinta:
-'''
+```sql
 SELECT * FROM Tehtava WHERE Tehtava.id = tehtava_id
-'''
+```
 
 Muokkaus:
-'''
+```sql
 UPDATE Tehtava SET pvm_muokkaus=CURRENT_TIMESTAMP, kuvaus='Uusi kuvaus'
 WHERE id = tehtavan_id
-'''
+```
 
 ### Tehtävän poistaminen
 
@@ -56,9 +56,9 @@ Hyväksymiskriteerit:
 * Käyttäjä voi valita poistettavan tehtävän
 * Tehtävä poistetaan
 
-'''
+```sql
 DELETE FROM Tehtava WHERE Tehtava.id = tehtavan_id
-'''
+```
 
 
 ### Käyttäjän lisääminen
@@ -72,15 +72,15 @@ Hyväksymiskriteerit:
 * Tallennettaessa luonti- ja muokkauspäiväksi tulee tallennushetki
 
 Haetaan listaus:
-'''
+```sql
 SELECT * FROM Kayttaja
-'''
+```
 
 Lisätään käyttäjä:
-'''
+```sql
 INSER INTO Kayttaja (kayttajan_nimi, tunnus, salasana, pvm_luonti, pvm_muokkaus)
 VALUES ('Nimi', 'tunnus', 'salasana', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) 
-'''
+```
 
 
 ### Käyttäjän tietojen muokkaus
@@ -93,14 +93,14 @@ Hyväksymiskriteerit:
 * Käyttäjän nimeä ja salasanaa voi muokata 
 
 Valinta:
-'''
+```sql
 SELECT * FROM Kayttaja WHERE id = kayttajan_id
-'''
+```
 
 Muokkaus:
-'''
+```sql
 UPDATE Kayttaja SET tunnus='Tunnus', kayttajan_nimi='Uusi nimi', salasana='Uusi salasana', pvm_muokkaus=CURRENT_TIMESTAMP
-'''
+```
 
 
 ### Työprosessin lisääminen
@@ -113,15 +113,15 @@ Hyväksymiskriteerit:
 * Prosessille määritellään nimi, alkupäivä, loppupäivä ja omistajaksi prosessin lisääjä
 
 Listaus:
-'''
+```sql
 SELECT * FROM Prosessi
-'''
+```
 
 Lisäys:
-'''
+```sql
 INSERT INTO Prosessi (prosessin_nimi, owner_id, pvm_alku, pvm_loppu, pvm_luonti, pvm_muokkaus)
 VALUES ('Prosessin nimi', id_nro, '2018-08-31', '2018-09-01', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
-'''
+```
 
 
 ### Työprosessin ja siihen liittyvien tehtävien listaus (prosessinseuranta)
@@ -133,12 +133,12 @@ Hyväksymiskriteerit:
 * Näytetään sekä prosessin tiedot että siihen liitetyt tehtävät listauksena
 
 Näytä prosessilista:
-'''
+```sql
 SELECT * FROM Prosessi
-'''
+```
 
 Näytä prosessinseuranta:
-'''
+```sql
 SELECT * FROM Prosessi WHERE id = prosessin_id
 
 SELECT * FROM Prosessitehtava WHERE prosessi_id = prosessin_id
@@ -147,7 +147,7 @@ SELECT Kayttaja.tunnus FROM Kayttaja
 INNER JOIN Tekija ON Kayttaja.id = Tekija.tekija_id
 INNER JOIN Prosessitehtava ON Tekija.pt_id = Prosessitehtava.id
 WHERE Prosessitehtava.prosessi_id = prosessin_id
-'''
+```
 
 
 ### Tehtävien lisääminen työprosessiin
@@ -160,13 +160,13 @@ Hyväksymiskriteerit:
 * Tiedot tallennetaan osaksi prosessin tehtäviä
 * Prosessikohtaisille tehtäville määritellään tekijä
 
-'''
+```sql
 INSERT INTO Prosessitehtava (pvm_luonti, pvm_muokkaus, pvm_alku, pvm_loppu, prosessi_id, tehtava_id)
 VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '2018-08-31', '2018-09-01', prosessin_id, tehtavan_id)
 
 INSERT INTO Tekija (pt_id, tekija_id)
 VALUES (prosessin_id, tekijan_id)
-'''
+```
 
 
 ### Työprosessin tehtävien päivittäminen
@@ -179,10 +179,10 @@ Hyväksymiskriteerit:
 ** Sovellus päivittää aloitus- ja valmistumisajat vastaavasti
 ** Samalla päivitetään myös kuittaus tehtävän aloittaneesta/lopettaneesta käyttäjästä
 
-'''
+```sql
 UPDATE prosessitehtava 
 SET pvm_muokkaus=CURRENT_TIMESTAMP, pvm_alku=annettu_pvm, pvm_loppu=annettu_pvm, pvm_kommentti=CURRENT_TIMESTAMP, kommentti='Kommenttiteksti', aloitettu=1, kuittaaja_alku_id=kayttajan_id, kommentoija_id=kayttajan_id WHERE prosessitehtava.id = prosessitehtavan_id
-'''
+```
 
 
 ### Tekijöiden lisääminen työprosessin tehtäville
@@ -196,16 +196,16 @@ Hyväksymiskriteerit:
 * Uusi käyttäjä tallennetaan Tallenna-painikkeella
 
 Listaus lisäysmahdollisuuksista:
-'''
+```sql
 SELECT Kayttaja.id, Kayttaja.tunnus FROM Kayttaja
 WHERE Kayttaja.id NOT IN 
 (SELECT Tekija.tekija_id FROM Tekija WHERE Tekija.pt_id = prosessitehtavan_id)
-'''
+```
 
 Tekijän lisääminen:
-'''
+```sql
 INSERT Tekija (pt_id, tekija_id) VALUES (prosessitehtavan_id, kayttajan_id)
-'''
+```
 
 ### Käyttäjän raportit
 Käyttäjä näkee etusivulla raportin omistamistaan prosesseista ja keskeneräisten tehtäviensä lukumäärän
@@ -215,7 +215,7 @@ Hyväksymiskriteerit:
 * Etusivulla näytetään käyttäjälle nimettyjen keskeneräisten tehtävien lukumäärä
 
 Prosessit:
-'''
+```sql
 SELECT COUNT(Prosessi.id) as lkm FROM Kayttaja
 LEFT JOIN Prosessi ON Prosessi.owner_id = Kayttaja.id
 WHERE Kayttaja.id = kayttajan_id
@@ -224,13 +224,13 @@ GROUP BY Kayttaja.id
 SELECT Prosessi.id as prosessi_id, Prosessi.prosessin_nimi as prosessin_nimi FROM Prosessi
 LEFT JOIN Kayttaja ON Prosessi.owner_id = Kayttaja.id
 WHERE Kayttaja.id = kayttajan_id
-'''
+```
 
 Tehtävät:
-'''
+```sql
 SELECT COUNT(Prosessitehtava.id) as lkm FROM Prosessitehtava
 JOIN Tekija ON Tekija.pt_id = Prosessitehtava.id
 WHERE Tekija.tekija_id = kayttajan_id
 AND Prosessitehtava.aloitettu"
 AND NOT Prosessitehtava.valmis
-'''
+```
