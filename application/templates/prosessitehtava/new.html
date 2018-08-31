@@ -21,7 +21,6 @@
     <legend>Prosessin tehtävät</legend>
         <table>
                 <tr>
-                    <th>Prosessitehtävän ID</th>
                     <th>Nimi</th>
                     <th>Alkaa</th>
                     <th>Loppuu</th>
@@ -36,9 +35,11 @@
                 <tr>
                     <form method="POST" action="{{ url_for('prosessitehtava_lisays', 
                         prosessi_id=prosessi.id) }}">
-                        <th></th>
                         <th>{{ form.tehtava }}</th>
-                        <th>{{ form.pvm_alku }}</th>
+                        <th>
+                            <p>Älä jätä tyhjäksi</p>
+                            <p>{{ form.pvm_alku }}</p>
+                        </th>
                         <th>{{ form.pvm_loppu }}</th>
                         <th>{{ form.tekija }}</th>
                         <th>{{ form.tallenna }}</th>
