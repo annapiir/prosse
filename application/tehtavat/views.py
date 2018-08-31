@@ -4,10 +4,12 @@ from flask_login import login_required
 from application.tehtavat.models import Tehtava
 from application.tehtavat.forms import TehtavaLisaysLomake, TehtavaMuokkausLomake
 
+
 #Palauttaa listan tehtävistä
 @app.route("/tehtavat", methods=["GET"])
 def tehtavat_lista():
     return render_template("tehtavat/list.html", tehtavat = Tehtava.query.all())
+
 
 #Palauttaa tehtävänlisäyslomakkeen
 @app.route("/tehtavat/uusi/", methods=["GET"])
@@ -15,20 +17,21 @@ def tehtavat_lista():
 def tehtavat_lomake():
     return render_template("tehtavat/new.html", form = TehtavaLisaysLomake())
 
+
 #Palauttaa valitun tehtävän tiedot lomakkeella
 @app.route("/tehtavat/<tehtava_id>/", methods=["GET"])
 def tehtavat_nayta(tehtava_id):
     return render_template("tehtavat/tehtava.html", tehtava=Tehtava.query.get(tehtava_id))
+
 
 #Palattaa muokattavaksi valitun tehtävän tiedot lomakkeella 
 @app.route("/tehtavat/muokkaa/<tehtava_id>/", methods=["GET"])
 @login_required
 def tehtavat_muokkaa_lomake(tehtava_id):
 
-    #Muodostetaan tehtävä- ja lomakeoliot
     form = TehtavaMuokkausLomake()
     tehtava = Tehtava.query.get(tehtava_id)
-    #Annetaan lomakeolion kuvaukselle tehtävän kuvaus lähtöarvoksi
+
     form.kuvaus.data = tehtava.kuvaus
 
     return render_template("tehtavat/edit.html", form=form, tehtava=tehtava)
@@ -40,12 +43,9 @@ def tehtavat_muokkaa(tehtava_id):
     form = TehtavaMuokkausLomake(request.form)
     t = Tehtava.query.get(tehtava_id)
 
-    #Lomakkeen validointi
     if not form.validate():
         return render_template("tehtavat/edit.html", form = form)
 
-    #Tutkitaan, tallennettiinko vai poistettiinko kuvaus
-    #Tämä ei ole nätti tapa, pitää parantaa
     if form.validate_on_submit():
         if form.tallenna.data:
             t.kuvaus = form.kuvaus.data
@@ -62,11 +62,9 @@ def tehtavat_muokkaa(tehtava_id):
 def tehtavat_luo():
     form = TehtavaLisaysLomake(request.form)
 
-    #Lomakkeen validointi
     if not form.validate():
         return render_template("tehtavat/new.html", form = form)
 
-    #Jos lomake oli ok, muodostetaan uusi tehtäväolio ja viedään kantaan
     t = Tehtava(form.nimi.data, form.kuvaus.data)
 
     db.session().add(t)

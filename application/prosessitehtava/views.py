@@ -10,11 +10,13 @@ from application.prosessitehtava.forms import ProsessitehtavaLisaysLomake, Prose
 
 from sqlalchemy.sql import text, func
 
+
 #Palauttaa prosessinvalintalistan
 @app.route("/prosessitehtava/", methods=["GET"])
 @login_required
 def prosessitehtava_prosessin_valinta():
     return render_template("/prosessitehtava/prosessi.html", prosessit=Prosessi.query.all())
+
 
 #Palauttaa prosessin tietosivun
 @app.route("/prosessitehtava/<prosessi_id>")
@@ -27,6 +29,7 @@ def prosessitehtava_prosessi_nayta(prosessi_id):
     tehtavat = Prosessitehtava.query.filter_by(prosessi_id=prosessi_id)
     lomakkeet = []
 
+    #Haetaan tehtäväkohtaisille lomakkeille tiedot 
     for tehtava in tehtavat:
         t = Tehtava.query.get(tehtava.tehtava_id)
 
@@ -53,7 +56,6 @@ def prosessitehtava_prosessi_nayta(prosessi_id):
 
         form = ProsessitehtavaMuokkausLomake()
 
-        #Esitäytetään lomakkeelle tiedot
         if tehtava.pvm_alku:
             form.pvm_alku.data = tehtava.pvm_alku.date()
         else:
@@ -88,6 +90,7 @@ def prosessitehtava_prosessi_nayta(prosessi_id):
     return render_template("/prosessitehtava/list.html", prosessi=prosessi, tehtavat=tehtavat, 
     lomakkeet=lomakkeet, omistaja_tunnus=omistaja_tunnus)
 
+
 #Hakee näytettävän prosessin
 @app.route("/prosessitehtava/", methods=["POST"])
 @login_required
@@ -95,6 +98,7 @@ def prosessitehtava_lomake():
     prosessi_id = request.form["prosessit"]
 
     return redirect(url_for("prosessitehtava_prosessi_nayta", prosessi_id=prosessi_id))
+
 
 #Palauttaa prosessitehtävän lisäyslomakkeen
 @app.route("/prosessitehtava/uusi/<prosessi_id>/", methods=["GET"])
@@ -111,15 +115,13 @@ def prosessitehtava_lisays_lomake(prosessi_id):
     return render_template("/prosessitehtava/new.html", prosessi=prosessi, tehtavat=tehtavat,
         form=form)
 
+
 #Lisää uuden prosessitehtävän tietokantaan
 @app.route("/prosessitehtava/uusi/<prosessi_id>", methods=["POST"])
 @login_required
 def prosessitehtava_lisays(prosessi_id):
     form = ProsessitehtavaLisaysLomake(request.form)
 
-    #Muista lisätä validoinnit
-
-    #Jos lomake oli ok, luodaan uusi pt-olio ja viedään kantaan
     pt = Prosessitehtava(prosessi_id, form.tehtava.data, form.pvm_alku.data, form.pvm_loppu.data)
     db.session().add(pt)
     db.session().commit()
@@ -129,9 +131,8 @@ def prosessitehtava_lisays(prosessi_id):
     db.session().add(tekija)
     db.session().commit()
  
-
-
     return redirect(url_for("prosessitehtava_prosessi_nayta", prosessi_id=prosessi_id))
+
 
 #Tallentaa muokatun tehtävän tiedot kantaan
 @app.route("/prosessitehtava/muokkaa/<prosessi_id>/<pt_id>", methods=["POST"])
@@ -139,7 +140,7 @@ def prosessitehtava_lisays(prosessi_id):
 def prosessitehtava_muokkaa(pt_id, prosessi_id):
     form = ProsessitehtavaMuokkausLomake(request.form)
 
-    #Alkuarvot tehtävän aloitukselle ja valmiudelle
+    #Alkuarvot, joihin verrataan päivitystarvetta
     pt = Prosessitehtava.query.get(pt_id)
     orig_aloitettu = pt.aloitettu
     orig_valmis = pt.valmis
@@ -160,7 +161,7 @@ def prosessitehtava_muokkaa(pt_id, prosessi_id):
     if orig_valmis == False and pt.valmis == True:
         pt.kuittaaja_alku_id = current_user.id
     
-    #Korjaa tämä, nyt on ainakin tyhjänä aina true
+    #Bugi: Päivittää tyhjän kommentin aina
     if orig_kommentti != pt.kommentti:
         pt.kommentoija_id = current_user.id
         pt.pvm_kommentti = db.func.current_timestamp()

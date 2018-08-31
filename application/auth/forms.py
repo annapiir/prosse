@@ -10,7 +10,6 @@ class KirjautuminenLomake(FlaskForm):
         csrf = False
 
 class KayttajaMuokkausLomake(FlaskForm):
-    #To do: Tarkastus, ettei tunnusta ole jo
     tunnus = StringField("Käyttäjätunnus",
         [validators.InputRequired("Anna käyttäjätunnus"),
         validators.Length(max=8, message="Käyttäjätunnus saa olla korkeintaan 8 merkkiä")])
@@ -25,7 +24,6 @@ class KayttajaMuokkausLomake(FlaskForm):
         csrf = False
 
 class KayttajaLisaysLomake(FlaskForm):
-    #To do: Tarkastus, ettei tunnusta ole jo
     tunnus = StringField("Käyttäjätunnus", 
         [validators.InputRequired("Anna käyttäjätunnus"),
         validators.Length(max=8, message="Käyttäjätunnus saa olla korkeintaan 8 merkkiä")])
